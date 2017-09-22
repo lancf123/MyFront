@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="full-screen" content="yes" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta name="360-fullscreen" content="true" />
+		<meta name="x5-page-mode" content="app" />
+		<meta name="browsermode" content="application" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="../jslib/weui/css/weui.min.css">
+		<link rel="stylesheet" href="../css/weui.ext.css">
+		<script type="text/javascript" src="../jslib/jquery/js/jquery.min.js"></script>
+		<title>话费余额</title>
+	</head>
+
+	<body>
+		<section>
+			<div class="blue_h_bg">
+            <span>手机号:<span id="mobileNo">1394099999</span></span>
+           <h2>话费余额<br><h1><span id="mobileNo">55.98</span><b>元</b></h1></h2>
+            </div>
+            <br>
+            	<div class="weui_cells weui_cells_access top0">
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary">
+						<img src="../image/huafei.png" width="30px">
+						<p class="dis">充话费</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary">
+						<img src="../image/liuliang.png" width="30px">
+						<p class="dis">充流量</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+
+			</div>
+		</section>
+	</body>
+
+</html>

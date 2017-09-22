@@ -1,0 +1,55 @@
+/**
+ * 话费余额
+ *
+ * @ViewModel
+ *
+ * 修改历史 REV. 修改时间 修改人 修改内容 ------- --------------- ----------------
+ * ------------------
+ */
+var BalanceViewModel = function() {
+
+	/**
+	 * 画面加载
+	 *
+	 * @public
+	 */
+	var init = function() {
+		_log.debug("balance page init!");
+		var $ok = $("#ok");
+		var $error = $("#error");
+		$ok.hide();
+		$error.hide();
+		var $errMsg = $("#errMsg");
+		// 调用服务插入访问信息
+		_service.invoke("SPI0606", {}, function(result) {
+
+			if (!_util.isEmpty(result.rspCd) && result.rspCd === "000000") {
+				if (_util.isEmpty(result.balance)) {
+					$ok.hide();
+					$error.show();
+					// "亲,您的手机XXX非中国移动号码"
+					$errMsg.html(_message.getMessage("MCMSG00005",
+							[ result.userMobile ]));
+				} else {
+					$ok.show();
+					$error.hide();
+					$("#mobileNo").html(result.userMobile);
+					$("#balance").html(result.balance);
+				}
+			} else {
+				$ok.hide();
+				$error.show();
+				if (!_util.isEmpty(result.rspCd) && result.rspCd === "222222") {
+					// "亲,您的手机XXX未绑定微信账号"
+					$errMsg.html(_message.getMessage("MCMSG00006",
+							[ result.userMobile ]));
+				}
+			}
+		}, function(result) {
+			$ok.hide();
+			$error.show();
+			$("#errArea").html("－－－");
+		});
+	};
+	this.init = init;
+};

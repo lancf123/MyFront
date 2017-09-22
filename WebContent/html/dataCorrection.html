@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ArmadaEYE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- The styles -->
+    <link id="bs-css" href="../css/bootstrap/bootstrap-cerulean.min.css" rel="stylesheet">
+    <link href="../css/jquery/jquery.dataTables.css" rel="stylesheet">	
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/dataCorrection.css" rel="stylesheet">	
+    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->	
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- The fav icon -->
+    <link rel="shortcut icon" href="../image/favicon.ico">
+
+</head>
+
+<body>
+    <!-- topbar starts -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-inner">
+            <button type="button" class="navbar-toggle pull-left animated flip">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span> 
+                                </button>
+            <a class="navbar-brand" href="index.html">
+                <img alt="ArmadaEYE Logo" src="../image/eye.png" class="hidden-sm hidden-xs"/>
+                <span>ArmadaEYE</span>
+            </a>
+            <!-- user dropdown starts -->
+            <div class="btn-group pull-right">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> admin</span>
+				<span class="caret"></span>
+            </button>
+                <ul class="dropdown-menu">
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </div>
+            <!-- user dropdown ends -->
+            <div class="btn-group pull-right theme-container tada">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-globe"></i><span
+					class="hidden-sm hidden-xs"> Change Language</span>
+				<span class="caret"></span>
+			</button>
+                <ul class="dropdown-menu" id="language">
+                    <li><a data-value="en" href="#"><i class="whitespace"></i>English</a></li>
+                    <li><a data-value="ja" href="#"><i class="whitespace"></i>日本語</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- topbar ends -->
+    <div class="ch-container">
+        <div id="body-content">
+            <div class="row" style="background-color: #f5f5f5;" id="topMenu">
+                <ul class="collapse navbar-collapse nav navbar-nav top-menu">
+                    <li><a href="index.html"><i class="glyphicon glyphicon-eye-open"></i>ホーム</a></li>
+                    <li><a href="templateList.html"><i class="glyphicon glyphicon-list-alt"></i>テンプレートリスト</a></li>
+                    <li><a href="templateSelect.html"><i class="glyphicon glyphicon-edit"></i>帳票アップロード</a></li>
+                    <li class="selected"><a href="dataCorrection.html"><i class="glyphicon glyphicon-edit"></i>帳票一覧</a></li>
+                </ul>
+            </div>
+
+            <div class="row">
+                <div id="content" class="box col-md-12">
+                    <!-- content starts -->
+                    <div>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="index.html">ホーム</a>
+                            </li>
+                            <li>
+                                <a href="#">補正</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <div class="box col-md-12">					
+                        <div class="box-inner">
+                            <!--Bill Identify-->
+                            <div class="box-content" id="billIdentify">
+                                <div class="control-group">
+                                    <div class="alert alert-info" style="margin-top:10px;overflow:auto">
+                                        <div style="float:left;line-height:38px"><strong>ファイル名: <span style="color:#555" id="temName">B.png</span></strong></div>
+										<div class="control-btn">
+											<a class="btn btn-default control-btn-right " id="save"><i class="glyphicon glyphicon-check">保存</i></a>
+										</div>										
+                                    </div>
+                                    <div class="row" style="margin:0;">
+                                        <div id="contentDiv">
+                                            <div position="left">
+                                                    <div id="main_info" class="content-detail main-detail" style="position: relative;float:left;">
+                                                        <div id="container" class="scan" style="overflow: auto;height:600px;position:relative;">
+                                                            <canvas id="myCanvas" style="border:1px;background:#f4f4f4;"></canvas>
+                                                        </div>
+                                                        <div id="imgDivId" style="display:none">
+                                                            <img id="reportImg" />
+                                                        </div>
+                                                    </div>
+
+                                                <!--<div style="margin-top:0px;margin-bottom:10px;width:500px;float:left;overflow: auto;position:relative;">
+                                                    <img id="reportImg" src="" />
+                                                </div>-->
+                                            </div>
+                                            <div position="right">
+                                                <div id="main_info" class="content-detail main-detail" style="width: 700px; position: relative;;float:left">
+                                                    <div class="scan" style="overflow: auto;height:600px;position:relative;overflow-x: auto; overflow-y: auto; height: 600px; width:700px;">
+                                                        <table id="dataCorrectionTbl" class="table table-striped datatable">
+                                                           <thead>
+                                                                <tr>
+                                                                    <th>No.</th>
+                                                                    <th>項目名</th>
+                                                                    <th>元画像</th>
+                                                                    <th>結果</th>
+                                                                </tr>
+                                                            </thead>
+															<tbody>
+															</tbody>
+                                                            <!--<tr>
+                                                                <td>1</td>
+                                                                <td class="center">姓</td>
+                                                                <td class="center">赤阪</td>
+                                                                <td class="center"><input type="text" value="赤坂"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>2</td>
+                                                                <td class="center">名</td>
+                                                                <td class="center">大郎</td>
+                                                                <td class="center"><input type="text" value="太郎"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>3</td>
+                                                                <td class="center">都道府県</td>
+                                                                <td class="center">東京都</td>
+                                                                <td class="center"><input type="text" value="東京都"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>4</td>
+                                                                <td class="center">市区町村</td>
+                                                                <td class="center">港区赤坂1-11-44</td>
+                                                                <td class="center"><input type="text" value="港区赤坂1-11-44"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>5</td>
+                                                                <td class="center">生年月日(年)</td>
+                                                                <td class="center">1995</td>
+                                                                <td class="center"><input type="text" value="1995"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>6</td>
+                                                                <td class="center">生年月日(月)</td>
+                                                                <td class="center">12</td>
+                                                                <td class="center"><input type="text" value="12"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>7</td>
+                                                                <td class="center">生年月日(日)</td>
+                                                                <td class="center">1</td>
+                                                                <td class="center"><input type="text" value="1"></td>
+                                                            </tr>-->
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+	<div class="control-group control-btn" style="margin-top:10px;overflow:auto">
+		<a class="btn-default control-btn-left" id="back"><i class="glyphicon glyphicon-arrow-left">データ一覧画面に戻る</i></a>
+		<a class="btn btn-default control-btn-right" id="next"><i class="glyphicon glyphicon-check">保存する</i></a>
+	</div>	
+    <div class="footer">
+        <div class="footer-content">
+            <p> <img src="../image/footer.png" alt="pic" width="35" height="27">A Production of Armada Project @CDC FS. Copy © 2017 Accenture Incorporated. All rights reserved.</p>
+        </div>
+    </div>
+
+	<!-- jQuery -->
+<!-- 	<script src="../jslib/jquery/js/jquery.min.js"></script>
+	<script src='../jslib/jquery/js/jquery.dataTables.js'></script>	
+	<script src='../jslib/common/js/core.min.js'></script>	
+    <script src="../jslib/okzoom/okzoom.js"></script>	
+	<script src='../js/common/service.js'></script> -->
+	<script src="../js/common/base.js"></script>
+    <script src='../js/common/service.js'></script>
+	<script src="../js/biz/dataCorrection/dataCorrection.js"></script>
+</body>
+
+</html>

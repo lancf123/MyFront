@@ -1,0 +1,239 @@
+/**
+ * 手机号绑定画面
+ *
+ * @ViewModel
+ *
+ * 修改历史 REV. 修改时间 修改人 修改内容 ------- --------------- ----------------
+ * ------------------
+ */
+var MobileBindViewModel = function(redirectPath) {
+
+	var countdown = 90;
+
+	/**
+	 * 画面加载
+	 *
+	 * @public
+	 */
+	var init = function() {
+
+		// 外部系统调用个人绑定个人信息，如果没有绑定的情况下，弹出绑定画面的处理。
+		// 判断redirechPath中是否包含Token
+		if (redirectPath.indexOf("Token") > -1) {
+			if (redirectPath.indexOf("hebaoEntry") == -1) {
+				var redirechPathArray = redirectPath.split("&");
+				var tokenArray = redirechPathArray[1].split("=");
+				_globalParam.set(_config.TOKEN_KEY, tokenArray[1]);
+				redirectPath = redirectPath.replace(/\*/g, "/");
+			} else {
+				var redirechPathArray = redirectPath.split("&");
+				var tokenArray = redirechPathArray[1].split("=");
+				_globalParam.set(_config.TOKEN_KEY, tokenArray[1]);
+				redirectPath = redirechPathArray[0].replace(/\*/g, "/");
+				redirectPath = redirectPath.replace("$", "#");
+			}
+		}
+
+		_log.debug("mobile bind page init!");
+		// 获取图形验证码
+		_service.invoke("SPI0206",[],function(result){
+			$("img").attr("src", "data:image/jpeg;base64," + result);
+		},function(result) {});
+
+
+		// 绑定表单提交事件
+		_html.bindEventById("bind", "click", this.bindMobile);
+		// 绑定点击图形验证码切换事件
+		_html.bindEventById("verificationCode_div", "click",
+				this.changeVerificationCode);
+		// 绑定发送短信验证码事件
+		_html.bindEventById("smsVerificationCode_id", "click",
+				this.sendSmsVerificationCode);
+	};
+	this.init = init;
+
+	/**
+	 * 手机号绑定表单提交事件处理
+	 *
+	 * @event
+	 */
+	var bindMobile = function() {
+
+		// 取得Form表单内控件的值
+		var mobile = _html.getValue("user_mobile_id");
+		var graphicVerificationCode = _html.getValue("picmeg");
+		var mobileVerificationCode = _html.getValue("smeg");
+		var message = null;
+
+		// 手机号非空判断
+		if (_util.isEmpty(mobile)) {
+			message = new Message("MCMSG00002");
+			_ui.showMessage(message, "error");
+			return;
+		}
+		// 图形验证码非空判断
+		if (_util.isEmpty(graphicVerificationCode)) {
+			message = new Message("MCMSG00003");
+			_ui.showMessage(message, "error");
+			return;
+		}
+		// 手机验证码非空判断
+		if (_util.isEmpty(mobileVerificationCode)) {
+			message = new Message("MCMSG00004");
+			_ui.showMessage(message, "error");
+			return;
+		}
+
+		// 图形验证码有效性检查
+		_service.invokeCoverError("SPI0207",
+				[graphicVerificationCode],function(result){
+			if (result.resultCode !== 1) {
+				var messageList = _mergeMessageList(result.exceptions);
+				_ui.showMessage(messageList, "error", function() {
+					changeVerificationCode();
+				});
+				return;
+			}
+
+			// 绑定处理
+			_service.invoke("SPI0201", [mobile,graphicVerificationCode,mobileVerificationCode],function(result){
+				// 绑定成功
+				if (result === undefined) {
+					if (!_util.isEmpty(redirectPath)) {
+						// 当目标画面为系统内部画面时
+						if (redirectPath.indexOf("#") === 0 && redirectPath.length > 1){
+							// 删除 #
+							redirectPath = redirectPath.substring(1);
+							// 跳转至目标画面
+							_ui.forwardTo.apply(null, redirectPath.split("/"));
+						// 当目标画面为系统外部画面时
+						}else{
+							_url.redirectTo(redirectPath, true);
+							// TODO 跳转的url与当前的url相同并且为当前系统内画面跳转
+							var hashValue = _url.getHashParams();
+							if (!_util.isEmpty(hashValue)) {
+								_ui.forwardTo.apply(null, hashValue);
+							}
+						}
+					} else {
+						// 显示绑定成功消息
+						// 关闭页面
+					}
+				}
+			},function(result) {});
+		});
+	};
+	this.bindMobile = bindMobile;
+
+	/**
+	 * 点击切换图形验证码事件
+	 *
+	 * @event
+	 */
+	var changeVerificationCode = function() {
+
+		// 获取图形验证码
+		_service.invoke("SPI0206",[],function(result){
+			$("img").attr("src", "data:image/jpeg;base64," + result);
+		},function(result) {});
+	};
+	this.changeVerificationCode = changeVerificationCode;
+
+	/**
+	 * 获取手机验证码事件
+	 *
+	 * @event
+	 */
+	var sendSmsVerificationCode = function() {
+
+		// 取得Form表单内控件的值
+		var mobile = _html.getValue("user_mobile_id");
+		var graphicVerificationCode = _html.getValue("picmeg");
+		var message = null;
+
+		// 手机号非空判断
+		if (_util.isEmpty(mobile)) {
+			message = new Message("MCMSG00002");
+			_ui.showMessage(message, "error");
+			return;
+		}
+		// 图形验证码非空判断
+		if (_util.isEmpty(graphicVerificationCode)) {
+			message = new Message("MCMSG00003");
+			_ui.showMessage(message, "error");
+			return;
+		}
+		// 图形验证码有效性检查
+		var result = _service.invokeSyncCoverError("SPI0207",graphicVerificationCode);
+		if(result === undefined || result.data === undefined || result === null || result.data === null){
+			message = new Message("MCMSG00009");
+			_ui.showMessage(message, "error");
+			return;
+		}
+
+		if (result.data.resultCode !== 1) {
+			var messageList = _mergeMessageList(result.data.exceptions);
+			_ui.showMessage(messageList, "error", function() {
+				changeVerificationCode();
+			});
+			return;
+		}
+
+		// 获取短信验证码
+		_service.invoke("SPI0202", [mobile],function(smsResult){
+			var obj = document.getElementById("smsVerificationCode_id");
+			// var smsResult = true;
+			// 发送成功
+			if (smsResult) {
+				$("#smsVerificationCode_id").removeClass("weui_btn_blue");
+				$("#smsVerificationCode_id").addClass("weui_btn_time");
+				// 倒计时计数器
+				settime(obj);
+			};
+		});
+
+	};
+	this.sendSmsVerificationCode = sendSmsVerificationCode;
+
+	var settime = function(obj) {
+		if (countdown == 0) {
+			$("#smsVerificationCode_id").removeClass("weui_btn_disabled");
+			$("#smsVerificationCode_id").removeClass("weui_btn_time");
+			$("#smsVerificationCode_id").addClass("weui_btn_blue");
+			obj.removeAttribute("disabled");
+			obj.innerText = "获取验证码";
+			countdown = 90;
+			return;
+		} else {
+			obj.setAttribute("disabled", true);
+			obj.innerText = "重新发送(" + countdown + ")";
+			countdown--;
+		}
+		setTimeout(function() {
+			settime(obj);
+		}, 1000);
+	};
+
+
+	/**
+     * 处理Service返回的异常信息数组
+     *
+     * @private
+     * @param  {Array} exceptions Service返回的异常信息数组
+     * @return {Array} 异常信息数组
+     */
+    function _mergeMessageList(exceptions){
+        var ret = null;
+        if (!_util.isEmpty(exceptions)){
+            ret = [];
+            for (var i = 0; i < exceptions.length; i++){
+                var item = exceptions[i];
+                ret.push({
+                    "messageId": item.id,
+                    "message": item.message
+                });
+            }
+        }
+        return ret;
+    }
+};

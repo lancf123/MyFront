@@ -1,0 +1,237 @@
+/*字体引入*/
+@font-face {
+  font-family: 'MyriadPro-Regular';
+  src: url("../fonts/MyriadPro-Regular.otf?c8ygcc") format("truetype"), url("../fonts/MyriadPro-Regular.woff?c8ygcc") format("woff");
+}
+@font-face {
+  font-family: 'Helvetica-BoldOblique';
+  src: url("../fonts/Helvetica-BoldOblique.otf?c8ygcc") format("truetype"), url("../fonts/Helvetica-BoldOblique.woff?c8ygcc") format("woff");
+}
+body {
+  margin: 0;
+}
+/*去除默认下拉箭头*/
+select::-ms-expand {
+  display: none;
+}
+select{
+ /* appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;*/
+}
+
+hr{
+	margin-top:0px;
+	margin-bottom:10px;
+}
+
+.navbar{
+	/*margin-bottom:10px;
+	height:6vh;*/
+}
+.alert{
+	margin-bottom: 5px;
+	padding:10px;
+}
+
+/*进度模块*/
+.step_contain {
+  width: 100%;
+  padding: 5px 0;
+  margin-bottom: 10px;
+  overflow:hidden;
+}
+.step_contain ul {
+  padding: 0px 10px;
+  margin: 0;
+}
+.step_contain ul li {
+  float: left;
+  width: 20%;        /*可根据实际步骤数调整*/
+  list-style: none;
+  text-align: center;
+  position: relative;
+  font-family: 'MyriadPro-Regular';
+  font-size: 14px;
+  color: #898989;
+}
+
+/*数字之间连线的实现，可调整位置*/
+.step_contain ul li:nth-child(2):before, .step_contain ul li:nth-child(3):before {
+  display: block;
+  content: "";
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  top: 17px;   /*可根据实际引用调整*/
+  left: -48%;  /*可根据实际引用调整*/
+  border-top: 1px solid #1d80d4;
+}
+
+/*方法一：html+css实现*/
+.step_contain ul li .number {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  margin: 0 auto 8px;
+  border: 2px solid #898989;
+  background: #fff;
+  font-family: 'Helvetica-BoldOblique';
+  font-size: 18px;
+  line-height: 28px;
+  text-align: left;
+  padding-left: 8px;
+}
+.step_contain ul li .number.number_actived {
+  border: 2px solid #1d80d4;
+  color: #1d80d4;
+}
+.step_contain ul li .number.number_active {
+  border: 2px solid #1d80d4;
+  background: #1d80d4;
+  color: #FFF;
+}
+/*方法二：icon实现*/
+.step_contain ul li i {
+  display: block;
+  font-size: 32px;
+  padding-bottom: 6px;
+}
+.step_contain ul li i.iconfont:before {
+  background: #fff;
+}
+.step_contain ul li:nth-child(1) i, .step_contain ul li:nth-child(2) i {
+  color: #1d80d4;
+}
+.step_contain ul li .actived {
+  color: #1d80d4;
+}
+
+/* end 进度模块*/
+
+
+/* radio & select */
+.container {
+  width: 44%;
+  font-family: 'MyriadPro-Regular';
+  font-size: 14px;
+  color: #000;
+  margin: 0 40px;
+  clear: both;
+}
+/*单选框实现*/
+.container .radio .title {
+  display: block;
+  width: 100%;
+  padding-bottom: 5px;
+}
+.container .radio .title span {
+  color: #c0000f;
+  margin-left: 5px;
+}
+.container .radio .radio-box input {
+  display: none;
+}
+.container .radio .radio-box label {
+  margin-left: 13px;
+  float: left;
+  color: #3c3c3c;
+  width: 40%;
+}
+.container .radio .radio-box .radiobutton {
+  position: relative;
+  margin-left: 10px;
+}
+.container .radio .radio-box .radiobutton:before {
+  position: absolute;
+  content: "";
+  width: 13px;
+  height: 13px;
+  border-radius: 100%;
+  border: 1px solid #1d80d4;
+  top: 0;
+  left: -22px;
+}
+.container .radio .radio-box input[type="radio"]:checked + .radiobutton:after {
+  position: absolute;
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: #1d80d4;
+  border-radius: 100%;
+  top: 3px;
+  left: -19px;
+}
+/*下拉框实现*/
+.container .select-box {
+  clear: both;
+  padding-top: 12px;
+  position: relative;
+}
+.container .select-box label {
+  display: block;
+  padding-bottom: 3px;
+}
+.container .select-box label span {
+  color: #c0000f;
+}
+.container .select-box select {
+  width: 100%;
+  height: 36px;
+  border-radius: 3px;
+  padding-left: 15px;
+  border: 1px solid #b5b5b5;
+  background: #fff;
+}
+.container .select-box i {
+	background: #fff;
+	position: absolute;
+	top: 15px;
+	right: 3px;
+	font-size: 24px;
+	color: #1d80d4;
+	height: 20px;
+	border-radius: 4px; 
+}
+/* end radio & select */
+
+/* Policy & Procedures */
+.policy_procedures {
+  width: calc(100%-80px);
+  font-family: 'MyriadPro-Regular';
+  border: 1px solid #b5b5b5;
+  border-top: 2px solid #0f0f6f;
+  margin-top: 40px;
+  padding: 40px;
+}
+.policy_procedures i {
+  padding-right: 13px;
+  color: #207db4;
+}
+/* end Policy & Procedures */
+
+/* icon实现：可调整大小，颜色，位置*/
+.icon_white {
+  background: #0f0f6f;    /*大背景颜色*/
+  padding: 20px;          /*调整位置*/
+  color: #fff;            /*设置icon颜色*/
+  font-size: 16px;        /*设置icon大小，与字体大小设置相同*/
+  margin-top: 20px;       /*调整位置*/
+}
+
+.icon_blue {
+  border: 1px solid #ccc; /*大背景的边框*/
+  padding: 20px;
+  color: #207db4;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.icon_orange {
+  border: 1px solid #ccc;
+  padding: 20px;
+  color: #eb6100;
+  margin-top: 20px;
+  font-size: 16px;
+}

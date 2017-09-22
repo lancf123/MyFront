@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="full-screen" content="yes" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta name="360-fullscreen" content="true" />
+		<meta name="x5-page-mode" content="app" />
+		<meta name="browsermode" content="application" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+		<!-- 第三方库 -->
+		<!-- JQuery -->
+		<script src="../jslib/jquery/js/jquery.js"></script>
+		<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+		<script type="text/javascript">
+
+			function getUrlParameter(paramName){
+		        var ret = {};
+		        var urlParam = window.location.search.substring(1);
+		        var urlVariables = urlParam.split('&');
+		        var paramArr = null;
+
+		        for (var i = 0; i < urlVariables.length; i++) {
+		            // 考虑参数中存在＝的情况
+		            paramArr = urlVariables[i].split("=");
+
+	                if (paramArr[0] === paramName) {
+	                    ret = paramArr[1];
+	                    break;
+	                }
+		        }
+		        return ret;
+		    }
+			$(function(){
+
+				getShareJs();
+				$("#setShare").on("click", function() {
+					getShareJs();
+				});
+			});
+			function getShareJs() {
+				var restUrl = "https://www.cmpay.com/weixin/cm_wallet_web/web/ss/si/cb/proc/getShareJs";
+				var token = getUrlParameter("Token");
+				alert(token);
+				//token = eval('(' + window.localStorage.getItem("___global_param__") + ')').__TOKEN;
+				//alert(token);
+				var data = {
+						currentUrl: window.location.href,
+						shareType: "1",
+						activitiesId: "123",
+						title: $("#shareTitle").val(),
+						desc: $("#shareDesc").val(),
+						shareUrl: "https://www.cmpay.com/weixin/cm_wallet_web/html/testShare.html?para=123",
+						shareUrlT: "https://www.cmpay.com/weixin/cm_wallet_web/html/testShare.html?para=456",
+						sharePic: "http://wx.qlogo.cn/mmopen/cH3jafO7QKMIefpFXicAE0uiazXw0dsGOeLB4gzg7Lnm3ibJ8otav3zILnhhLa7vr6x4eC2pmyLR83NBCt0SfHVzRzV0pwlpSOg/132",
+						Token:token
+				}
+				$.ajax({
+					type: "POST",
+					url: restUrl,
+					data: data,
+					dataType: "json",
+					success: function(result) {
+						console.log(result);
+						var jscode = result.resultObject;
+                        new Function(jscode.replace(/<[^>].*?>/g, ""))();
+					}
+				});
+			}
+
+			function shareCallBack(source) {
+				if (source === "Friend") {
+					alert("shareCallBack:好友 " + source);
+				} else if (source === "Timeline") {
+					alert("shareCallBack:朋友圈 " + source);
+				}
+			}
+		</script>
+		<title>分享测试</title>
+	</head>
+
+	<body>
+		<div class="weui_cells_title">&nbsp;&nbsp;</div>
+		<div class="weui_cells weui_cells_form">
+			<div class="weui_cell">
+				<div class="weui_cell_hd"><label class="weui_label">分享title</label></div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input id="shareTitle" class="weui_input" type="text" placeholder="分享title" value="默认title" />
+				</div>
+			</div>
+			<div class="weui_cell weui_vcode">
+				<div class="weui_cell_hd"><label class="weui_label">请输入分享描述</label></div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input id="shareDesc" class="weui_input" type="text" placeholder="请输入分享描述" value="默认分享描述"/>
+				</div>
+				<div class="weui_cell_ft">
+					<img src="" />
+				</div>
+			</div>
+		</div>
+		<div class="bd spacing" id="setShare"><a class="weui_btn weui_btn_primary weui_btn_blue">设置分享</a>
+		</div>
+		<script>
+		</script>
+	</body>
+
+</html>

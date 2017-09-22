@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="utf-8">
+    <title>ArmadaEYE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- The styles -->
+    <link id="bs-css" href="../css/bootstrap/bootstrap-cerulean.min.css" rel="stylesheet">
+
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/index.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <!--<link href="../css/jquery/jquery.dataTables.css" rel="stylesheet">-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+
+    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- The fav icon -->
+    <link rel="shortcut icon" href="../image/eye.png">
+
+</head>
+
+<body>
+    <!-- topbar starts -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-inner">
+            <button type="button" class="navbar-toggle pull-left animated flip">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span> </button>
+            <a class="navbar-brand" href="index.html">
+                <img alt="ArmadaEYE Logo" src="../image/eye.png" class="hidden-sm hidden-xs" />
+                <br/><span>ArmadaEYE</span>
+            </a>
+            <!-- user dropdown starts -->
+            <div class="btn-group pull-right">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> 赤坂太郎</span>
+				<span class="caret"></span>
+		</button>
+                <ul class="dropdown-menu">
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </div>
+            <!-- user dropdown ends -->
+            <div class="btn-group pull-right theme-container tada">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-globe"></i><span
+					class="hidden-sm hidden-xs"> Change Language</span>
+				<span class="caret"></span>
+			</button>
+                <ul class="dropdown-menu" id="language">
+                    <li><a data-value="en" href="#"><i class="whitespace"></i>English</a></li>
+                    <li><a data-value="ja" href="#"><i class="whitespace"></i>日本語</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- topbar ends -->
+    <div class="ch-container">
+        <div id="body-content">
+            <div class="row" style="background-color: #f5f5f5;" id="topMenu">
+                <ul class="collapse navbar-collapse nav navbar-nav top-menu">
+                    <li class="selected"><a href="index.html"><i class="glyphicon glyphicon-eye-open"></i>ホーム</a></li>
+                    <li><a href="templateList.html"><i class="glyphicon glyphicon-list-alt"></i>テンプレートリスト</a></li>
+                    <li><a href="templateSelect.html"><i class="glyphicon glyphicon-edit"></i>帳票アップロード</a></li>
+                    <li><a href="reportList.html"><i class="glyphicon glyphicon-edit"></i>帳票一覧</a></li>
+                </ul>
+            </div>
+            <P class="row">
+            </P>
+            <div class="row">
+                <div id="content" class="col-lg-12 col-sm-12 toggled">
+                    <div>
+                        <div class="col-md-6 col-sm-3 col-xs-6">
+                            <a data-toggle="tooltip" title="" class="well top-block" href="templateList.html">
+                                <i class="glyphicon glyphicon-list-alt red"></i>
+                                <h1>テンプレートリスト</h1>
+                                <h5>テンプレートの新規登録と登録済みテンプレートの確認/編集/削除が行えます。</h5>
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-sm-3 col-xs-6">
+                            <a data-toggle="tooltip" title="" class="well top-block" href="templateSelect.html">
+                                <i class="glyphicon glyphicon-camera green"></i>
+                                <h1>帳票アップロード</h1>
+                                <h5>帳票をアップロードし、AIによる手書き・機械文字の認識が行えます。</h5>
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-sm-3 col-xs-6">
+                            <a data-toggle="tooltip" title="" class="well top-block" href="reportList.html">
+                                <i class="glyphicon glyphicon-edit yellow"></i>
+                                <h1>帳票一覧</h1>
+                                <h5>作業途中だった帳票の認識再開や認識済みデータの補正ができます。</h5>
+                            </a>
+                        </div>
+                        <div class="box col-md-6">
+                        <div class="box-inner homepage-box">
+                        <div class="box-header well">
+                        <h2><i class="glyphicon glyphicon-th"></i> Tabs</h2>
+                        <div class="box-icon">
+                        <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
+                        <a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                        <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                        </div>
+                        <div class="box-content">
+                        <ul class="nav nav-tabs" id="myTab">
+                        <li class="active"><a href="#info">Info</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane active" id="info">
+                        <h3>ArmadaEye
+                        <small>バージョンアップのお知らせ</small>
+                        </h3>
+                        <p>2017年11月03日に認識率が向上したArmadaEye AIをリリース致します。</br>リリースに伴い、サービスの停止はございません。</p>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- content ends -->
+                </div>
+                <!--/#content.col-md-0-->
+            </div>
+            <!--/fluid-row-->
+        </div>
+    </div>
+    <!--/.fluid-container-->
+
+    <div class="footer">
+        <div class="footer-content">
+            <p> <img src="../image/footer.png" alt="pic" width="35" height="27">A Production of Armada Project @CDC FS. Copy © 2017 Accenture Incorporated. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- external javascript -->
+    <!-- jQuery -->
+    <script src="../jslib/jquery/js/jquery.min.js"></script>
+    <script src="../jslib/bootstrap/bootstrap.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <!-- data table plugin -->
+    <script type="text/javascript" charset="utf8" src="../jslib/jquery/js/jquery.dataTables.js"></script>
+    
+    <!-- <script src="../jslib/jquery/js/jquery.js"></script> -->
+    <script src="../jslib/jquery/js/jquery.validate.min.js"></script>
+    <script src="../jslib/common/js/_core.js"></script>
+    <script src="../js/common/Auth.js"></script>
+    <script src="../js/common/service.js"></script>
+<!--    <script src="../js/biz/reportList/index.js"></script>-->
+
+</body>
+
+</html>

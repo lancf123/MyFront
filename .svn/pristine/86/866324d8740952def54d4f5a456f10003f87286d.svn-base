@@ -1,0 +1,29 @@
+﻿<html>
+<head>
+<title>中移电子商务2016社会招聘</title>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="full-screen" content="yes" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta name="360-fullscreen" content="true" />
+		<meta name="x5-page-mode" content="app" />
+		<meta name="browsermode" content="application" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no"></head>
+        		<link rel="stylesheet" href="../css/weui.ext.css">
+
+<body>
+<div>
+    <a href="http://workbest.cc/zbw/initCompanydetailsNose.do?Id=100000013&type=company&systemFlag=2&projectId=73&moduleFlag=2&schoolId=&jobId=205"  class="zhaopin_btn">点击报名</a>
+    <img src="../image/zhaopin.jpg" alt="" width="100%" height="100%" border="0"/>
+</div>
+</body>
+</html>

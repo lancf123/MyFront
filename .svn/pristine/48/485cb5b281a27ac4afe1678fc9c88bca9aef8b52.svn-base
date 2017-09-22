@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="full-screen" content="yes" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta name="360-fullscreen" content="true" />
+		<meta name="x5-page-mode" content="app" />
+		<meta name="browsermode" content="application" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="../jslib/weui/css/weui.min.css">
+		<link rel="stylesheet" href="../css/weui.ext.css">
+		<script type="text/javascript" src="../jslib/jquery/js/jquery.min.js"></script>
+
+		<script type="text/javascript">
+			var otag = document.getElementsByClassName('wrap');
+			window.onload = function() {
+				for (var i = 0; i < otag.length; i++) {
+					otag[i].style.display = "none";
+
+				}
+			}
+			$(document).ready(function() {
+				var weui_cells = $(".weui_cell");
+				weui_cells.click(function() {
+					$(this).next().slideToggle("fast")
+
+					if ($(this).children()[1].className == "weui_cell_down") {
+						$(this).children()[1].className = "weui_cell_ft";
+					} else {
+						$(this).children()[1].className = "weui_cell_down";
+					}
+				})
+			})
+		</script>
+		<title></title>
+	</head>
+
+	<body>
+		<section>
+			<div class="blue_bg h1_small">
+				<h1>和聚宝</h1><img src="../image/qs.png" width="45px" height="45px" alt=""></div>
+			<div class="weui_cells weui_cells_access top0">
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que1">
+						<p>什么是和聚宝服务?</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">和聚宝是和包推出的一项理财服务，转入资金不仅可获得收益，还能随时消费支付，且开户、转入、转出、消费不收取任何手续费，请您放心使用。<br>收益产生共有三个环节：【转入资金】—【确认份额】—【收益发放】，目前确认份额仅支持工作日，收益将每天显示。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que2">
+						<p>为什么有时候不能使用快速提现？</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">因和聚宝快速取现当日整体额度已满，请您暂时使用普通取现。给您带来的不便敬请谅解！建议您提前1到2天，做好相关资金安排。
+
+				</div>
+
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que3">
+						<p>电信或联通用户是否可以购买和聚宝？</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">和聚宝产品支持异网用户，异网用户可以在和包官网正常使用和聚宝业务。异网用户使用IOS手机，可通过客户端的方式使用和聚宝。
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和钱包资金赎回是否有最低限额？</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">汇添富基金资金赎回最低限额0.01元，嘉实基金资金赎回最低限额1元。
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>可否同时购买2个及以上的理财产品?</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">对于和钱包用户只能同时拥有一支理财产品，对于和定期则无限制。
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>万份收益如何计算</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">通俗地说就是投资1万元当日获得的收益。这个指标越高，投资人获得的真实收益就越高。</div>
+
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>每天的收益是怎么计算的</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">当日收益=（已确认份额的资金/10000 ）X 每万份收益。假设您已确认份额的资金为8000元，当天的每万份收益为1.35元，代入计算公式，您当日的收益为：1.08元。
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>什么时候能看到收益到账</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">您转入和聚宝的资金在第二个工作日由基金公司进行份额确认，对已确认的份额会开始计算收益，收益计入您的和聚宝资金内，请在份额确认后的第二天15点后查看收益。如遇国家法定假期，基金公司不进行份额确认，以实际收益时间为准。
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>转入规则说明</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">在资金转入后，份额实时到帐，基金公司确认份额并开始计算收益。15:00前转入的资金（已支付成功时间为准），第二个工作日开始计算收益，收益将在计算收益后的次日发放；15:00后转入资金顺延一个工作日发放收益。双休日及国家法定假期转入的资金，基金公司将在下一个工作日确认份额，确认后次日发放收益。例：周四15:00后转入的资金，基金公司下周一完成份额确认
+
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和聚宝转入限额说明</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" border="1">
+						<tr>
+							<td colspan="4">和聚宝快捷支付转入额度(和包APP)</td>
+						</tr>
+						<tr>
+							<td>银行</td>
+							<td>单笔</td>
+							<td>每日</td>
+							<td>每月</td>
+						</tr>
+						<tr>
+							<td>工商银行</td>
+							<td>10万</td>
+							<td>10万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>中国银行</td>
+							<td>1万</td>
+							<td>1万</td>
+							<td>30万</td>
+						</tr>
+						<tr>
+							<td>农业银行</td>
+							<td>2万</td>
+							<td>5万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>建设银行</td>
+							<td>5000</td>
+							<td>1万</td>
+							<td>30万</td>
+						</tr>
+						<tr>
+							<td>招商银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>邮储银行</td>
+							<td>1万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>浦发银行</td>
+							<td>10万</td>
+							<td>20万</td>
+							<td>100万;</td>
+						</tr>
+						<tr>
+							<td>光大银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>中信银行</td>
+							<td>5000</td>
+							<td>2万</td>
+							<td>60万</td>
+						</tr>
+						<tr>
+							<td>华夏银行</td>
+							<td>5000</td>
+							<td>5000</td>
+							<td>15万</td>
+						</tr>
+						<tr>
+							<td>渤海银行</td>
+							<td>5000</td>
+							<td>5000</td>
+							<td>15万</td>
+						</tr>
+						<tr>
+							<td>民生银行</td>
+							<td>1000</td>
+							<td>5000</td>
+							<td>15万</td>
+						</tr>
+
+					</table>
+					<br>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" border="1">
+						<tr>
+							<td colspan="4">和聚宝快捷支付转入额度(和聚宝APP、和包官网)</td>
+						</tr>
+						<tr>
+							<td>银行</td>
+							<td>单笔</td>
+							<td>每日</td>
+							<td>每月</td>
+						</tr>
+						<tr>
+							<td>工商银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>中国银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>农业银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>建设银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>招商银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>邮储银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>浦发银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>光大银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>中信银行</td>
+							<td>20万</td>
+							<td>20万</td>
+							<td>100万</td>
+						</tr>
+						<tr>
+							<td>华夏银行</td>
+							<td>5000</td>
+							<td>5000</td>
+							<td>15万</td>
+						</tr>
+						<tr>
+							<td>渤海银行</td>
+							<td>5000</td>
+							<td>5000</td>
+							<td>15万</td>
+						</tr>
+						<tr>
+							<td>民生银行</td>
+							<td>5000</td>
+							<td>5000</td>
+							<td>15万</td>
+						</tr>
+
+					</table>
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>转出规则说明</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">快速取现（每日限5万）2小时内到账（取现时间：周一至周日0:00-24:00，资金到账时间24:00前）<br>普通取现（浦发、招行、工行、建行、邮储单笔最高20万，其他银行单笔最高5万）15:00前T+1日到账，15:00后T+2日到账（T为操作当天），如遇到国家法定节假日，则到账日期顺延<br> 普通取现比快速取现可至少多一天收益。即从申请日开始至银行卡金额到账前一天都有收益。
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>什么是安全卡</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">为保障和聚宝账户资金安全，在和聚宝中绑定一张独立的快捷银行卡。和聚宝所有的转出只能到安全卡，和聚宝快捷转入也只能用此张安全卡。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>安全卡怎么保护和聚宝资金</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">安全卡与和聚宝绑定，一同保障您的资金安全，就算遇到手机丢失或密码被盗等特殊情况，和聚宝中的资金一样只能回到安全卡中。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>怎样更换安全卡？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">您需要先将和聚宝中的份额全部成功赎回，才可进行安全卡的更换。如果您的安全卡异常，和聚宝账户存在余额，请致电10086转和包客服寻求帮忙。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>我的安全卡正常，但申购额度受限且有和定期，想要更换张银行卡购买和聚宝，怎么操作？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">建议用户待和定期资金到期且全额赎回至银行卡后进行安全卡自主更换。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>为什么我买的和聚宝会显示充值到和包账户？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">和聚宝是和包账户体系中的一个理财专户，用户的投资资金都是通过和包账户进行流转，包括充值、提现等。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>为什么网站上面看不到和定期，客户端上才可以看到？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">和定期网站版本正在规划中，敬请期待。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和定期通过哪几种方式购买？具体购买步骤如何？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">和定期可以通过如下两种方式购买：<br> 安全卡购买-通过和聚宝唯一指定的安全卡进行购买；
+					<br> 和钱包购买-通过和钱包内的活期余额购买。
+				</div>
+
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和定期用户购买时是否有限额？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">若用户通过和钱包购买和定期时无上限，通过安全卡购买时有银行卡限额。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和定期封闭期内可以取款吗？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">产品详情中已有说明：产品成立后即进入封闭期，封闭期内资金不可取出。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和定期理财产品募集期是什么意思？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">所谓募集期，就是指当期理财产品，从发布产品到产品起息之间，投资资金的募集期，该期限内用户可购买，一旦资金募集完毕即关闭购买。具体的募集期根据具体的定期理财产品确定。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和定期理财产品募集期内申购的资金可退回吗？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">您在产品募集期内申购的资金，系统会作冻结处理，保证最终整体募集资金额度可控，否则有可能无法保证正常的起息日。在该期限内，资金是不可以退回的。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和定期理财产品在存续期内可取现吗？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">和定期理财产品约定一定的期限，在存续期内是不可以提现的。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和定期理财资金可用于消费吗？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">不可以，和定期理财产品约定一定投资期限，该期限内不可做任何消费，且不可提现。这既可保障投资收益的到达率，也可充分保障资金安全。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和定期可以每天查看收益吗？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">和定期理财不能每天看到收益的，也不能每天显示收益，到期后才更新收益。
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和聚宝定期到期后多久到账？</p>
+					</div>
+					<div class="weui_cell_down">
+					</div>
+				</a>
+				<div class="wrap">和定期到期后,本金和收益会在到期次日的1-3个工作日内自动转入您的和聚宝活期账户。不管购买和定期的资金是通过和钱包转入还是安全卡转入，和定期到期后，资金都是转入和钱包内，并享受活期理财收益。
+				</div>
+		</section>
+	</body>
+
+</html>

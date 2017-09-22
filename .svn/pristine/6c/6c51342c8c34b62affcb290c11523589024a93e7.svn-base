@@ -1,0 +1,170 @@
+/**
+ * 系统设定信息模块。
+ *
+ * @namespace
+ * @version 1.0
+ * @author HanL
+ */
+var _config = new function(){
+
+    /**
+     * 系统名称
+     *
+     * @const
+     * @type {string}
+     */
+    this.APP_NAME = "";
+
+    /**
+     * 系统ID
+     *
+     * @const
+     * @type {string}
+     */
+    this.APP_ID = "";
+
+    /**
+     * 系统欢迎页面
+     *
+     * @const
+     * @type {string}
+     */
+    this.WELCOME_PAGE = "";
+
+    /**
+     * 系统版本号
+     *
+     * @const
+     * @type {string}
+     */
+    this.APP_REVISION = "0.0.6";
+
+    /**
+     * 异步HTTP通信的过期时间
+     *
+     * @const
+     * @type {number}
+     */
+    this.DEFAULT_TIMEOUT = 20000;
+
+    /**
+     * HTML页面文件保存目录
+     *
+     * @const
+     * @type {string}
+     */
+    this.HTML_ROOT_DIR = "html/";
+
+    /**
+     * 错误页面文件保存目录
+     *
+     * @const
+     * @type {string}
+     */
+    this.HTML_ERROR_DIR = "error/";
+
+    /**
+     * JavaScript文件保存目录
+     *
+     * @const
+     * @type {String}
+     */
+    this.SRC_ROOT_DIR = "js/";
+
+    /**
+     * 系统业务画面显示区域
+     *
+     * @const
+     * @type {string}
+     */
+    this.MAIN_AREA_ID = "_sys_container";
+
+    /**
+     * 模式窗口控件ID
+     *
+     * @const
+     * @type {String}
+     */
+    this.MODAL_AREA_ID = "_area_message_dialog";
+
+    /**
+     * 系统加载提示控件ID
+     *
+     * @const
+     * @type {String}
+     */
+    this.LOADING_ID = "_loading";
+
+    /**
+     * 画面配置文件路径
+     *
+     * @const
+     * @type {String}
+     */
+    this.VIEWMODEL_CONFIG_FILE = "./jslib/setaria/js/custom/viewModel_config.json";
+
+    /**
+     * 表格每页行数
+     *
+     * @const
+     * @type {Number}
+     */
+    this.TABLE_PAGE_LENGTH = 10;
+
+    /**
+     * Token键值
+     *
+     * @const
+     * @type {String}
+     */
+    this.TOKEN_KEY = "__TOKEN";
+
+    /**
+     * 上一次取得的Auth Code的键值
+     *
+     * @const
+     * @type {String}
+     */
+    this.LAST_AUTH_CODE_STORE_KEY = "__LAST_AUTH_CODE_";
+
+    /**
+     * Wallet Service服务的地址
+     *
+     * @const
+     * @type {String}
+     */
+    this.WALLET_SPI_URL = "web/ss/ai/cmp/";
+
+    /**
+     * Wallet_SPI中的Token键名
+     *
+     * @type {String}
+     */
+    this.WALLET_SPI_SERVICE_ACCESS_TOKEN_KEY = "Token";
+
+    /**
+     * Wallet Service服务的地址
+     *
+     * @const
+     * @type {String}
+     */
+    this.WEB_INNER_DIAPATCHER_URL = "web/wx/cb/pres/forward";
+
+    /**
+     * Wallet web服务的地址标识判断
+     *
+     * @const
+     * @type {String}
+     */
+    this.WEB_INNER_LOCATION_KEY = "cmpay.com/weixin/cm_wallet_web";
+
+    /**
+     * 取得本地配置文件时所使用的缓存值
+     *
+     * @const
+     * @return {Function} 缓存值
+     */
+    this.createCacheToken = function(){
+        return this.APP_REVISION;
+    };
+};

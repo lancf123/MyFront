@@ -1,0 +1,394 @@
+package com.wallet.cm.web.dispatcher;
+
+import java.io.PrintWriter;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.wink.json4j.JSONException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.dora.message.MessageProperties;
+
+/**
+ * WeChatFrontDispatcher
+ *
+ * @author Yue MA
+ *
+ */
+@Controller
+@RequestMapping("ss/")
+public class SystemFrontDispatcher extends CommonServiceInvoker {
+
+	/**
+     * Const define properties
+     */
+    @Resource(
+            name = "constProperties")
+    private MessageProperties constProperties;
+
+    /**
+     * doViewCallback
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param modelMap
+     * @param inputDTO
+     * @return
+     */
+    @RequestMapping(
+            value = "si/cb/pres", method = RequestMethod.GET)
+    public String doViewCallback(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            // @RequestParam("param1") String param1,
+            // @RequestParam("param2") String param2,
+            ModelMap modelMap) {
+        String path = "rederict:xxx";
+
+        // TODO
+        // TODO
+        // TODO
+
+        return path;
+    }
+
+    /**
+     * doGetShareJsProcessOptionsCallback
+     * 预检请求
+     *
+     * @param session
+     * @param request
+     * @param response
+     */
+    @RequestMapping(
+            value = "si/cb/proc/getShareJs", method = RequestMethod.OPTIONS)
+    public void doGetShareJsProcessOptionsCallback(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+    	getAppLogger().info("doViewCallback start:***************getShareJs RequestMethod.OPTIONS");
+    	response.setHeader("Access-Control-Allow-Origin", "*");
+    	response.setHeader("Access-Control-Allow-Methods", "POST");
+    	response.setHeader("Access-Control-Allow-Headers", "Content-Type, Token");
+    }
+
+    /**
+     * doShareRecordProcessPostCallback
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param modelMap
+     * @param inputDTO
+     * @return
+     */
+    @RequestMapping(
+            value = "si/cb/proc/getShareJs", method = RequestMethod.POST)
+	@ResponseBody
+	public void doGetShareJsProcessPostCallback(
+			HttpSession session,
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam("currentUrl") String currentUrl,
+			@RequestParam("shareType") Integer shareType,
+			@RequestParam("activitiesId") String activitiesId,
+			@RequestParam("title") String title,
+			@RequestParam("desc") String desc,
+			@RequestParam("shareUrl") String shareUrl,
+			@RequestParam("sharePic") String sharePic,
+			PrintWriter printWriter) {
+		String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+		ArrayList<String> paraList = new ArrayList<String>();
+		paraList.add(currentUrl);
+		paraList.add(shareType.toString());
+		paraList.add(activitiesId);
+		paraList.add(title);
+		paraList.add(desc);
+		paraList.add(shareUrl);
+		paraList.add(request.getParameter("shareUrlT"));
+		paraList.add(sharePic);
+
+		String jsonOutput = super.callService(request, response, serviceRootUri + "SPI0501", toSpiParameter(paraList));
+		printWriter.write(jsonOutput);
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods", "POST, GET");
+		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Token");
+	}
+
+	private String toSpiParameter(
+			ArrayList<String> paraList) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		for (int i = 0; i < paraList.size(); i++) {
+			if (i != 0) {
+				sb.append(",");
+			}
+			sb.append("\"").append(paraList.get(i)).append("\"");
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+
+    /**
+     * doShareViewCallback
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param code
+     * @param targetPageId
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping(
+            value = "si/cb/pres/share", method = RequestMethod.GET)
+    public String doShareViewCallback(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @RequestParam("code") String code,
+            @RequestParam("targetPageId") String targetPageId,
+             @RequestParam("shareMatchCode") String shareMatchCode,
+             @RequestParam("shareUrl") String shareUrl,
+            ModelMap modelMap) {
+    	getAppLogger().info("doViewCallback start:cb/pres/share");
+    	String webDispatcher = constProperties.get("URL-WEB-DISPATCHER");
+    	Map<String, String> paramMap = new HashMap<String, String>();
+    	String redirectPath = null;
+
+    	paramMap.put("code", code);
+    	paramMap.put("targetPageId", targetPageId);
+    	paramMap.put("shareMatchCode", shareMatchCode);
+    	paramMap.put("shareUrl", shareUrl);
+    	try {
+			redirectPath = buildRedirectUrl(webDispatcher, paramMap);
+		} catch (URISyntaxException e) {
+			getAppLogger().error(e);
+		}
+
+        return "redirect:" + redirectPath;
+    }
+
+    /**
+     * doShareRecordProcessOptionsCallback
+     * 预检请求
+     *
+     * @param session
+     * @param request
+     * @param response
+     */
+    @RequestMapping(
+            value = "si/cb/proc/sharerecord", method = RequestMethod.OPTIONS)
+    public void doShareRecordProcessOptionsCallback(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+    	getAppLogger().info("doViewCallback start:***************RequestMethod.OPTIONS");
+    	response.setHeader("Access-Control-Allow-Origin", "*");
+    	response.setHeader("Access-Control-Allow-Methods", "POST");
+    	response.setHeader("Access-Control-Allow-Headers", "Content-Type, Token");
+    }
+
+    /**
+     * doShareRecordProcessPostCallback
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param modelMap
+     * @param inputDTO
+     * @return
+     */
+    @RequestMapping(
+            value = "si/cb/proc/sharerecord", method = RequestMethod.POST)
+	@ResponseBody
+	public void doShareRecordProcessPostCallback(
+			HttpSession session,
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam("shareType") String shareType,
+			@RequestParam("activitiesId") String activitiesId,
+			@RequestParam("shareMatchCode") String shareMatchCode,
+			PrintWriter printWriter) {
+		String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+		String jsonOutput = super.callService(request, response, serviceRootUri + "SPI0502", "[" + shareType + "," + activitiesId + ",\"" + shareMatchCode + "\"]");
+		printWriter.write(jsonOutput);
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods", "POST");
+		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Token");
+	}
+
+    /**
+     * doProcessPostCallbackOptionsCallback
+     * 跨域访问
+     *
+     * @param session
+     * @param request
+     * @param response
+     */
+    @RequestMapping(
+            value = "si/cb/proc/{serviceId}/{serviceName}", method = RequestMethod.OPTIONS)
+    public void doProcessPostCallbackOptionsCallback(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        getAppLogger().info("doViewCallback start:***************RequestMethod.OPTIONS");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Token");
+    }
+
+    /**
+     * doProcessPostCallback
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param modelMap
+     * @param inputDTO
+     * @return
+     * @throws JSONException
+     */
+    @RequestMapping(
+            value = "si/cb/proc/{serviceId}/{serviceName}", method = RequestMethod.GET)
+    @ResponseBody
+    public void doProcessGetCallback(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @PathVariable String serviceId,
+            @PathVariable String serviceName,
+            PrintWriter printWriter) throws JSONException {
+
+        String jsonOutput = serviceDispatcher(serviceId,serviceName,request,response);
+        printWriter.write(jsonOutput);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setCharacterEncoding("utf-8");
+    }
+
+    /**
+     * doProcessPostCallback
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param modelMap
+     * @param inputDTO
+     * @return
+     * @throws JSONException
+     */
+    @RequestMapping(
+            value = "si/cb/proc/{serviceId}/{serviceName}", method = RequestMethod.POST)
+    @ResponseBody
+    public void doProcessPostCallback(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @PathVariable String serviceId,
+            @PathVariable String serviceName,
+            PrintWriter printWriter) throws JSONException {
+
+        String jsonOutput = serviceDispatcher(serviceId,serviceName,request,response);
+        printWriter.write(jsonOutput);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.setCharacterEncoding("utf-8");
+    }
+
+    /**
+     *
+     * build url
+     *
+     * @param url
+     * @param params
+     * @return
+     * @throws URISyntaxException
+     */
+    protected String buildRedirectUrl(String url, Map<String, String> params) throws URISyntaxException{
+		String result = "";
+		try {
+			URIBuilder builder = new URIBuilder(url);
+			if (params != null){
+				for (String paramKey : params.keySet()){
+					builder.addParameter(paramKey, params.get(paramKey));
+				}
+			}
+			result = builder.build().toASCIIString();
+		} catch (URISyntaxException e) {
+			throw e;
+		}
+
+		return result;
+	}
+
+    /**
+     * @param serviceId
+     * @param serviceName
+     * @param request
+     * @param response
+     * @return
+     */
+    private String serviceDispatcher (String serviceId,String serviceName,HttpServletRequest request,
+            HttpServletResponse response){
+        String jsonOutput = "";
+        getAppLogger().info("serviceDispatcher start----serviceId is "+ serviceId +" serviceName is " + serviceName);
+        if (serviceId.equals("SPI0401") && serviceName.equals("sendtemplate")){
+            String templateId = request.getParameter("templateId");
+            String data = request.getParameter("data");
+            String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+            jsonOutput = super.callService(request,response,serviceRootUri + serviceId, "["+templateId+","+data+"]");
+        }else if (serviceId.equals("SPI0402") && serviceName.equals("sendmsg")){
+            String mblNo = request.getParameter("mblNo");
+            String smsCd = request.getParameter("smsCd");
+            String repVals = request.getParameter("repVals");
+            String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+            jsonOutput = super.callService(request,response,serviceRootUri + serviceId, "["+mblNo+","+smsCd+","+repVals+"]");
+        }else if (serviceId.equals("SPI0403") && serviceName.equals("sendwechattemplate")){
+            String templateId = request.getParameter("templateId");
+            String data = request.getParameter("data");
+            String mobileNumber = request.getParameter("mobileNumber");
+            getAppLogger().info("templateId Is == " + templateId + " ; data Is == " + data + " ; mobileNumber Is == " + mobileNumber);
+            String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+            jsonOutput = super.callService(request,response,serviceRootUri + serviceId, "["+templateId+","+data+","+mobileNumber+"]");
+        } else if (serviceId.equals("SPI0601") && serviceName.equals("searchuserinfo")){
+            String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+            jsonOutput = super.callService(request,response,serviceRootUri + serviceId, "[]");
+        }else if (serviceId.equals("SPI0602") && serviceName.equals("searchbinduserinfo")){
+            String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+            jsonOutput = super.callService(request,response,serviceRootUri + serviceId, "[]");
+        }else if (serviceId.equals("SPI0603") && serviceName.equals("friendrelation")){
+            String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+            jsonOutput = super.callService(request,response,serviceRootUri + serviceId, "[]");
+        }else if (serviceId.equals("SPI0604") && serviceName.equals("getaccesstoken")){
+            String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+            jsonOutput = super.callService(request,response,serviceRootUri + serviceId, "[]");
+        } else if (serviceId.equals("SPI0605") && serviceName.equals("getjsapiticket")){
+            String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+            jsonOutput = super.callService(request,response,serviceRootUri + serviceId, "[]");
+        } else if (serviceId.equals("SPI0606") && serviceName.equals("getPhoneBlance")){
+            String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+            jsonOutput = super.callService(request,response,serviceRootUri + serviceId, "[]");
+        }
+        return jsonOutput;
+    }
+
+}

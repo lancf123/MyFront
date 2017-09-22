@@ -1,0 +1,15 @@
+git init
+git config --global user.name "myname"
+git config --global user.email "mymail@mymail.com"
+git remote add origin https://github.com/myname/testShare.git
+git add . 
+git commit -m "first commit"
+git pull origin master
+git push -f origin master
+
+
+python E:\lancf\python\ocr.py --mode=inferenceByCsv --rec_csv_dir=C:\Users\chuanfu.lan\Desktop\report\aa\src_pic\rec_csv\imgsInfotemp.csv --result_csv_dir=C:/Users/chuanfu.lan/Desktop/report/aa/src_pic\ocr_csv\OCRResulttemp.csv
+
+
+
+4.52694239249666

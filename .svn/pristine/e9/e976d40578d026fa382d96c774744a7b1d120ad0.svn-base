@@ -1,0 +1,24 @@
+#YoungLeader Environment
+#URL-SPI-ROOT=http://localhost:18681/cm_wallet_spi/CMP/
+#URL-RETRIEVE-MENU=http://localhost:18681/cm_wallet_spi/CMP/SPI9902
+#URL-WEB-DISPATCHER=http://www.youngleader.co/cm_wallet_web/main.html
+#URL-WEB-ERROR=http://www.youngleader.co/cm_wallet_web/html/error/errorIndex.html?errorMessageId=
+#
+#WECHAT-NOTICE-TOKEN=NGlhpKQttzVLLnljNr240hB0kc3gE6o4
+
+#Loacal Environment
+#URL-SPI-ROOT=http://localhost:7001/cm_wallet_spi/CMP/
+#URL-RETRIEVE-MENU=http://localhost:7001/cm_wallet_spi/CMP/SPI9902
+#URL-WEB-DISPATCHER=http://localhost:7001/cm_wallet_web/main.html
+#URL-WEB-ERROR=http://localhost:7001/cm_wallet_web/html/error/errorIndex.html?errorMessageId=
+#
+#WECHAT-NOTICE-TOKEN=NGlhpKQttzVLLnljNr240hB0kc3gE6o4
+
+
+#GaoYang Environment
+#URL-SPI-ROOT=http://localhost:31011/cm_wallet_spi/CMP/
+#URL-RETRIEVE-MENU=http://localhost:31011/cm_wallet_spi/CMP/SPI9902
+#URL-WEB-DISPATCHER=http://uat.cmpay.com/weixin/cm_wallet_web/main.html
+#URL-WEB-ERROR=http://uat.cmpay.com/weixin/cm_wallet_web/html/error/errorIndex.html?errorMessageId=
+#
+#WECHAT-NOTICE-TOKEN=NGlhpKQttzVLLnljNr240hB0kc3gE6o4

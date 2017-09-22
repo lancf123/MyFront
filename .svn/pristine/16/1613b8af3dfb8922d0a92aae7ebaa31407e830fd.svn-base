@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="full-screen" content="yes" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta name="360-fullscreen" content="true" />
+		<meta name="x5-page-mode" content="app" />
+		<meta name="browsermode" content="application" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="../jslib/weui/css/weui.min.css">
+		<link rel="stylesheet" href="../css/weui.ext.css">
+        <link rel="stylesheet" href="../css/font.css">
+		<script type="text/javascript" src="../jslib/jquery/js/jquery.min.js"></script>
+		<title>话费余额</title>
+	</head>
+
+	<body>
+		<section class="wraps_center">
+        <div class="h1_s center"> <span class="icon-icon_Recharge"><span class="icon-icon_Warn"></span></span>
+			</div>
+            <br>
+			<div class="h1_s center"><span>亲,您的手机13304081999&nbsp;非中国移动号码</span><br>我们无法进行话费余额查询
+			</div>
+            <div class="bottom_text">＊话费余额查询功能只支持中国移动用户</div>
+		</section>
+	</body>
+
+</html>

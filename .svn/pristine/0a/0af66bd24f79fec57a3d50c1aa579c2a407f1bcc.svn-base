@@ -1,0 +1,35 @@
+################################################################################
+# Naming Rule: <SYS Exception ID>=<Message>
+################################################################################
+
+SEMSG-DEFAULT=\u53d1\u751f\u7cfb\u7edf\u5f02\u5e38\uff0c\u8bf7\u67e5\u770b\u65e5\u5fd7.
+SEMSG-TIMEOUT=\u670d\u52a1\u5668\u4f1a\u8bdd\u8d85\u65f6.
+SEMSG-AUTH-FAIL=\u670d\u52a1\u9274\u6743\u5931\u8d25:{0}.
+
+VEMSG-NOTNULL={0} \u8f93\u5165\u4e0d\u80fd\u4e3a\u7a7a.
+VEMSG-FMT-DATE={0} \u8f93\u5165\u4e0d\u7b26\u5408\u65e5\u671f\u683c\u5f0f{1}.
+VEMSG-FMT-DATETIME={0} \u8f93\u5165\u4e0d\u7b26\u5408\u65e5\u65f6\u683c\u5f0f{1}.
+VEMSG-FMT-TIME={0} \u8f93\u5165\u4e0d\u7b26\u5408\u65f6\u95f4\u683c\u5f0f{1}.
+VEMSG-FMT-DECIMAL={0} \u8f93\u5165\u4e0d\u7b26\u5408\u6570\u503c\u683c\u5f0f.
+VEMSG-FMT-NUMERIC={0} \u8f93\u5165\u4e0d\u7b26\u5408\u6570\u5b57\u683c\u5f0f.
+VEMSG-FMT-BOOL={0} \u8f93\u5165\u4e0d\u7b26\u5408\u5e03\u5c14\u683c\u5f0f(true or false).
+VEMSG-FMT-BIT={0} \u8f93\u5165\u4e0d\u7b26\u5408BIT\u683c\u5f0f(0 or 1).
+VEMSG-FMT-ALPHA={0} \u8f93\u5165\u4e0d\u7b26\u5408\u82f1\u5b57\u683c\u5f0f.
+VEMSG-FMT-ALPHANUM={0} \u8f93\u5165\u4e0d\u7b26\u5408\u82f1\u6570\u683c\u5f0f.
+VEMSG-FMT-ASCII={0} \u8f93\u5165\u4e0d\u7b26\u5408ASCII\u683c\u5f0f.
+VEMSG-FMT-ASCIINS={0} \u8f93\u5165\u4e0d\u7b26\u5408ASCIINS\u683c\u5f0f.
+VEMSG-FMT-CURRENCY={0} \u8f93\u5165\u4e0d\u7b26\u5408\u8d27\u5e01\u683c\u5f0f.
+VEMSG-FMT-EMAIL={0} \u8f93\u5165\u4e0d\u7b26\u5408Email\u683c\u5f0f.
+VEMSG-FMT-MOBILE={0} \u8f93\u5165\u4e0d\u7b26\u5408\u624b\u673a\u53f7\u7801\u683c\u5f0f.
+VEMSG-FMT-TEL={0} \u8f93\u5165\u4e0d\u7b26\u5408\u7535\u8bdd\u53f7\u7801\u683c\u5f0f.
+VEMSG-FMT-ZIPCODE={0} \u8f93\u5165\u4e0d\u7b26\u5408\u90ae\u653f\u7f16\u7801\u683c\u5f0f.
+VEMSG-LEN-MAX={0} \u6700\u5927\u957f\u5ea6\u4e3a{1}.
+VEMSG-LEN-MIN={0} \u6700\u5c0f\u957f\u5ea6\u4e3a{1}.
+VEMSG-LEN-RANGE={0} \u957f\u5ea6\u8303\u56f4\u662f{1}\uff5e{2}.
+VEMSG-LEN-FIX={0} \u957f\u5ea6\u4e3a\u56fa\u5b9a\u957f{1}.
+VEMSG-LEN-PRECISION={0} \u6570\u503c\u7cbe\u5ea6\u6700\u5927\u4e3a{1}.
+VEMSG-LEN-SCALE={0} \u5c0f\u6570\u7cbe\u5ea6\u6700\u5927\u4e3a{1}.
+VEMSG-VAL-MIN={0} \u503c\u7684\u4e0b\u9650\u4e3a{1}.
+VEMSG-VAL-MAX={0} \u503c\u7684\u4e0a\u9650\u4e3a{1}.
+VEMSG-VAL-ERR={0} \u8f93\u5165\u8d85\u51fa\u9650\u5b9a\u8303\u56f4{1}\uff5e{2}.
+VEMSG-COS-ERR={0} \u8f93\u5165\u8d85\u51fa\u5236\u7ea6\u9650\u5b9a\u8303\u56f4.

@@ -1,0 +1,20 @@
+{
+    "itemList": [
+        {
+            "item_id": "item1001",
+            "x": "243",
+            "y": "451",
+            "width": "463",
+            "height": "131",
+            "line_type": "1"		
+        },
+        {
+            "item_id": "item1002",
+            "x": "219",
+            "y": "755",
+            "width": "713",
+            "height": "103",
+            "line_type": "2"
+        }
+    ]
+}

@@ -1,0 +1,66 @@
+{
+    "mobileBind":{
+        "viewModelClass": "biz/mobileBind/MobileBindViewModel",
+        "template": "mobileBind.html",
+        "viewName": "手机绑定"
+    },
+    "hebaoEntry":{
+        "viewModelClass": "biz/hebaoEntry/HebaoEntryViewModel",
+        "template": "hebaoEntry.html",
+        "viewName": "和包跳转"
+    },
+    "shareEntry":{
+        "viewModelClass": "biz/shareEntry/ShareEntryViewModel"
+    },
+    "recharge":{
+        "viewModelClass": "biz/recharge/RechargeViewModel",
+        "template": "recharge.html",
+        "viewName": "话费流量"
+    },
+    "balance":{
+        "viewModelClass": "biz/balance/BalanceViewModel",
+        "template": "balance.html",
+        "viewName": "话费余额"
+    },
+    "myWallet":{
+        "viewModelClass": "biz/myWallet/MyWalletViewModel",
+        "template": "myWallet.html",
+        "viewName": "我的和包"
+    },
+    "help":{
+        "viewModelClass": "biz/help/HelpViewModel",
+        "template": "help.html",
+        "viewName": "客服中心"
+    },
+    "help_hebao":{
+        "template": "help_hebao.html",
+        "viewName": "和包账户"
+    },
+    "help_huafei":{
+        "template": "help_huafei.html",
+        "viewName": "充话费"
+    },
+    "help_ecoupons":{
+        "template": "help_ecoupons.html",
+        "viewName": "电子券"
+    },
+    "help_hejubao":{
+        "template": "help_hejubao.html",
+        "viewName": "和聚宝"
+    },
+    "intro":{
+        "viewModelClass": "biz/intro/IntroViewModel",
+        "template": "intro.html",
+        "viewName": "公司及业务介绍"
+    },
+    "jobs":{
+        "viewModelClass": "biz/jobs/JobsViewModel",
+        "template": "jobs.html",
+        "viewName": "和包招聘"
+    },
+    "friend":{
+    	"viewModelClass": "biz/friend/FriendViewModel",
+        "template": "testFriend.html",
+        "viewName": "好友关系"
+    }
+}

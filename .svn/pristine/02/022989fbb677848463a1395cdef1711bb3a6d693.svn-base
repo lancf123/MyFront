@@ -1,0 +1,257 @@
+package com.wallet.cm.web.dispatcher;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.wink.json4j.JSONObject;
+
+import com.dora.ajax.AJAXParser;
+import com.dora.ajax.AJAXRender;
+import com.dora.http.HttpParam;
+import com.dora.http.HttpProxy;
+import com.dora.message.Message;
+import com.dora.service.AbstractComponent;
+import com.dora.service.CommonServiceResponse;
+import com.dora.service.GenericServiceResponse;
+import com.dora.service.ServiceResponse;
+import com.dora.session.SessionContext;
+import com.dora.util.StringUtil;
+
+/**
+ * AbstractAction
+ *
+ * @author Yue MA
+ */
+public abstract class CommonServiceInvoker extends AbstractComponent {
+    /**
+     * AJAX data render
+     */
+    @Resource(
+            name = "ajaxRender")
+    private AJAXRender<String> ajaxRender;
+
+    /**
+     * AJAX data parser
+     */
+    @Resource(
+            name = "ajaxParser")
+    private AJAXParser<String> ajaxParser;
+
+    /**
+     * HTTP invoke instance
+     */
+    @Resource(
+            name = "jsonHttpProxy")
+    private HttpProxy httpProxy;
+
+    /**
+     * Invoke remote service by input parameters (pass in array instance) and return GenericServiceResponse which contains result object instance.
+     *
+     * @param uri
+     * @param inputParams
+     * @param resultObjectType
+     * @return
+     */
+	protected <RESULT_OBJ> GenericServiceResponse<RESULT_OBJ> callService(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            String uri,
+            Object[] inputParams,
+            Class<RESULT_OBJ> resultObjectType) {
+        GenericServiceResponse<RESULT_OBJ> serviceResponse = null;
+        // RESULT_OBJ resultObj = null;
+        try {
+            String jsonIn = toJSON(inputParams);
+            String jsonOut = callService(request, response, uri, jsonIn);
+            JSONObject responseJO = new JSONObject(jsonOut);
+            if (responseJO.getInt("resultCode") == GenericServiceResponse.SUCCESS) {
+                Object jsonAnyObj = responseJO.get("resultObject");
+                String resultObjectStr = jsonAnyObj != null ? jsonAnyObj.toString(): null;
+                RESULT_OBJ resultObj = (RESULT_OBJ) ajaxParser.parse(resultObjectStr, resultObjectType, null, null);
+                serviceResponse = new GenericServiceResponse<RESULT_OBJ>();
+                serviceResponse.setResultCode(GenericServiceResponse.SUCCESS);
+                serviceResponse.setResultObject(resultObj);
+            } else {
+                // Do exception process for service
+                CommonServiceResponse cresponse = ajaxParser.parse(jsonOut, CommonServiceResponse.class, null, null);
+                serviceResponse = new GenericServiceResponse<RESULT_OBJ>();
+                serviceResponse.setResultCode(cresponse.getResultCode());
+                serviceResponse.setExceptions(cresponse.getExceptions());
+                serviceResponse.setMessages(cresponse.getMessages());
+            }
+        } catch (Exception e) {
+            serviceResponse = new GenericServiceResponse<RESULT_OBJ>();
+            serviceResponse.setResultCode(GenericServiceResponse.SYSTEM_EXCEPTION);
+            serviceResponse.getExceptions().add(new Message("Service invoke error:" + uri + e));
+        }
+        return serviceResponse;
+    }
+
+    /**
+     * Invoke remote service by input json data and return as json format text.
+     *
+     * @param uri
+     * @param jsonInput
+     * @return
+     */
+    protected String callService(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            String uri,
+            String jsonInput) {
+        HttpParam param = new HttpParam(jsonInput);
+
+        String uid = null;
+        String token = null;
+        String appId = null;
+
+        if (request != null) {
+            // Get common framework transferred items from request header
+            uid = request.getHeader(SessionContext.Key.UID.toString());
+            if (StringUtil.isEmpty(uid)) {
+                uid = request.getParameter("UID");
+            }
+            token = request.getHeader(SessionContext.Key.Token.toString());
+            if (StringUtil.isEmpty(token)) {
+                token = request.getParameter("Token");
+            }
+            appId = request.getHeader(SessionContext.Key.AppId.toString());
+            if (StringUtil.isEmpty(appId)) {
+                appId = request.getParameter("AppId");
+            }
+            param.addHeader(SessionContext.Key.UID.toString(), uid);
+            param.addHeader(SessionContext.Key.Token.toString(), token);
+            param.addHeader(SessionContext.Key.AppId.toString(), appId);
+        }
+
+        // Write application log
+        getLogger().info("Start", uri);
+        String jsonOutput = httpProxy.doPost(uri, param);
+
+        if (param.getResponse() != null && response != null) {
+            // Set framework transferred items back into response header
+            uid = param.getHttpResponseHeader(SessionContext.Key.UID.toString());
+            token = param.getHttpResponseHeader(SessionContext.Key.Token.toString());
+            appId = param.getHttpResponseHeader(SessionContext.Key.AppId.toString());
+            response.setHeader(SessionContext.Key.UID.toString(), uid);
+            response.setHeader(SessionContext.Key.Token.toString(), token);
+            response.setHeader(SessionContext.Key.AppId.toString(), appId);
+        }
+
+        // Write application log
+        getLogger().info("End", uri);
+        return jsonOutput;
+    }
+
+   /* *//**
+     * Invoke remote service by input json data and return as json format text.
+     *
+     * @param uri
+     * @param jsonInput
+     * @return
+     *//*
+    protected String callServiceForRedirectToken(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            String uri,
+            String jsonInput,
+            String token) {
+        HttpParam param = new HttpParam(jsonInput);
+        String uid = null;
+        String appId = null;
+        if (request != null) {
+            // Get common framework transferred items from request header
+            uid = request.getHeader(SessionContext.Key.UID.toString());
+            appId = request.getHeader(SessionContext.Key.AppId.toString());
+            param.addHeader(SessionContext.Key.UID.toString(), uid);
+            param.addHeader(SessionContext.Key.Token.toString(), token);
+            param.addHeader(SessionContext.Key.AppId.toString(), appId);
+        }
+        // Write application log
+        getLogger().info("Start", uri);
+        String jsonOutput = httpProxy.doPost(uri, param);
+        // Write application log
+        getLogger().info("End", uri);
+        return jsonOutput;
+    }*/
+
+    /**
+     * Render object/array to JSON format
+     *
+     * @param inDTO
+     * @return
+     */
+    protected String toJSON(
+            Object[] inDTO) {
+        return ajaxRender.render(inDTO);
+    }
+
+    /**
+     * Parse JSON into bean instance
+     *
+     * @param jsonOut
+     * @param outDTOClass
+     * @return
+     */
+    protected <T extends ServiceResponse<?>> T fromJSON(
+            String jsonOut,
+            Class<T> outDTOClass) {
+        T serviceResponse = null;
+        try {
+            serviceResponse = (T) ajaxParser.parse(jsonOut, outDTOClass, null, null);
+        } catch (Throwable e) {
+            getAppLogger().error("Failed to parse JSON data to Class:" + outDTOClass, e);
+            getAppLogger().error("JSON=" + jsonOut);
+        }
+        return serviceResponse;
+    }
+
+    /**
+     * @return the ajaxRender
+     */
+    public AJAXRender<String> getAjaxRender() {
+        return ajaxRender;
+    }
+
+    /**
+     * @param ajaxRender
+     *            the ajaxRender to set
+     */
+    public void setAjaxRender(
+            AJAXRender<String> ajaxRender) {
+        this.ajaxRender = ajaxRender;
+    }
+
+    /**
+     * @return the ajaxParser
+     */
+    public AJAXParser<String> getAjaxParser() {
+        return ajaxParser;
+    }
+
+    /**
+     * @param ajaxParser
+     *            the ajaxParser to set
+     */
+    public void setAjaxParser(
+            AJAXParser<String> ajaxParser) {
+        this.ajaxParser = ajaxParser;
+    }
+
+    /**
+     * @return the httpProxy
+     */
+    public HttpProxy getHttpProxy() {
+        return httpProxy;
+    }
+
+    /**
+     * @param httpProxy
+     *            the httpProxy to set
+     */
+    public void setHttpProxy(
+            HttpProxy httpProxy) {
+        this.httpProxy = httpProxy;
+    }
+}

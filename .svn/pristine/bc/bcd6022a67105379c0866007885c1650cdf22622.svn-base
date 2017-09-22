@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="full-screen" content="yes" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta name="360-fullscreen" content="true" />
+		<meta name="x5-page-mode" content="app" />
+		<meta name="browsermode" content="application" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="../jslib/weui/css/weui.min.css">
+		<link rel="stylesheet" href="../css/weui.ext.css">
+		<script type="text/javascript" src="../jslib/jquery/js/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var weui_cells = $(".weui_cell");
+				weui_cells.click(function() {
+					$(this).next().slideToggle("fast")
+
+					if ($(this).children()[1].className == "weui_cell_down") {
+						$(this).children()[1].className = "weui_cell_ft";
+					} else {
+						$(this).children()[1].className = "weui_cell_down";
+					}
+				})
+			})
+		</script>
+		<title></title>
+	</head>
+
+	<body>
+		<section>
+			<div class="blue_bg h1_small">
+				<h1>电子券</h1><img src="../image/qs.png" width="45px" height="45px" alt=""></div>
+			<div class="weui_cells weui_cells_access top0">
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que1">
+						<p>什么是电子券</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">电子券是中国移动发行的电子礼金，电子券的金额、有效期、适用商户等属性视具体活动规则而定，用户可在电子券有效期内使用其购买适用商户指定的商品，电子券可拆分或合并使用。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que2">
+						<p>如何获取电子券</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">您可以通过参与当地的营销活动、通过积分兑换或实物卡兑换获得电子券。
+				</div>
+
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que3">
+						<p>电子券可以用来做什么？</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">目前，电子券可用于支付的商品主要有：电影票、图书、精美小商品、KFC代金券、天猫购物券、唯品会唯品卡、爱奇艺VIP会员、中石化加油充值卡等。（电子券可使用商户根据具体营销活动而定) 
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>如何使用电子券</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap"><b>电子券商城兑换：</b>用户通过登录和包电子券商城 p.10086.cn/h4 ，进入商城首页，选择短信兑换/在线兑换购买商品。短信兑换：系统下发一条短信，用户按提示回复相应指令即可兑换相应商品；在线兑换：点击在线兑换-提交订单-去支付，按提示进行支付操作。<br><b>短信方式：</b>用户选择需要用电子券支付的商品种类，根据系统提示完成商品支付流程；或用户根据获取电子券后的短信提示语回复相应指令在指定商户上完成支付。系统默认优先使用电子券。<br><b> 网站方式：</b>通过登录和包业务网站 https://www.cmpay.com，进入“电子券频道”选择您需要购买的商品，按提示进行支付操作，系统会在扣款时优先扣除代金券（若用户有代金券），再使用您账户内的电子券，最后使用现金账户，您的和包现金账户余额不足时，可通过银行补款，即可完成支付。也可登录其它能使用电子券的商户网站，在支付时选择和包，付款流程与上述描述相同。
+				</div>
+
+			</div>
+			</div>
+		</section>
+	</body>
+
+</html>

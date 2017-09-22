@@ -1,0 +1,99 @@
+$(function(){
+    // 自定义转发器
+    _setaria.dispatcher = function(){
+        var params = _url.getUrlParameter();
+        // 票据
+        var code = params.code;
+        // 菜单项目Index
+        var menuIndex = params.menuIndex;
+        // 目标内部系统画面ID
+        var targetPageId = params.targetPageId;
+        // 用户信息
+        var userObject = null;
+        // 菜单Model
+        var menuModel = null;
+        // 菜单信息
+        var menuInfo = null;
+        // 跳转画面信息
+        var targetPageObject = null;
+        // 跳转至内部页面的信息
+        var pageParams = null;
+        // 外部系统url
+        var redirectUri = null;
+        // 上次取得的auth code
+        var lastCode = null;
+        //外部URL进行微信授权登录后，重定向ＵＲＬ
+        var outterAuthRedirectUrl = params.OutterAuthRedirect;
+        if(!_util.isEmpty(outterAuthRedirectUrl)){
+        	outterAuthRedirectUrl = outterAuthRedirectUrl.replace(/\*/g, "=");
+        }
+
+        // 鉴权
+        if (!_util.isEmpty(code)){
+            // 取得前次的auth code
+            lastCode = _globalParam.get(_config.LAST_AUTH_CODE_STORE_KEY);
+            // 如果与前次的code值相等，认定为重复访问(在子画面里点击返回按钮，当前窗口url刷新等情况)，关闭当前画面
+            if (code === lastCode){
+                // 关闭当前页面
+                _wechat.closeWindow();
+                return;
+            }else{
+                // 保存取得的code值
+                _globalParam.set(_config.LAST_AUTH_CODE_STORE_KEY, code);
+            }
+            // 鉴权并取得跳转画面信息
+            userObject = new AuthModel().auth(code);
+            // 鉴权成功的场合
+            if (!_util.isEmpty(userObject) && !_util.isEmpty(userObject.uid)){
+                // TODO The token does not response in response header
+                _globalParam.set(_config.TOKEN_KEY, userObject.token);
+            // 鉴权失败的场合
+            }else{
+                // 关闭当前页面
+                _wechat.closeWindow();
+                return;
+            }
+        }
+        // 菜单跳转
+        if (!_util.isEmpty(menuIndex)){
+            // 实例化菜单Model
+            menuModel = new MenuModel();
+            // 取得菜单信息
+            menuInfo = menuModel.getMenuInfo(menuIndex);
+            // 取得目标画面信息
+            targetPageObject = menuModel.getTargetPageInfo(menuInfo);
+            // 系统内部画面跳转的场合
+            if (!_util.isEmpty(targetPageObject.pageId)){
+                pageParams = !_util.isEmpty(targetPageObject.pageParams) ?
+                    targetPageObject.pageParams : [];
+                pageParams.unshift(targetPageObject.pageId);
+                _ui.forwardTo.apply(null, pageParams);
+            // 系统外部画面跳转的场合
+            }else if (!_util.isEmpty(targetPageObject.redirectUri)){
+                redirectUri = targetPageObject.redirectUri;
+                // 当跳转链接为外部系统链接的场合
+                if (redirectUri.indexOf(_config.WEB_INNER_LOCATION_KEY) === -1){
+                    redirectUri = _url.setUrlParameter(redirectUri, {
+                        "Token": _globalParam.get(_config.TOKEN_KEY)
+                    });
+                }
+                _url.redirectTo(redirectUri, true);
+            // 对应的菜单信息不存在
+            }else{
+                // 跳转至错误画面,404?
+            }
+        // 跳转至指定画面的场合
+        }else if (!_util.isEmpty(targetPageId)){
+            _ui.forwardTo(targetPageId);
+        }else if(!_util.isEmpty(outterAuthRedirectUrl)){
+        	outterAuthRedirectUrl = _url.setUrlParameter(outterAuthRedirectUrl, {
+                 "Token": _globalParam.get(_config.TOKEN_KEY)
+            });
+        	_url.redirectTo(outterAuthRedirectUrl, true);
+        }else{
+            _setaria.defaultDispatcher();
+        }
+    };
+    // 启动setaria
+    _setaria.start();
+});

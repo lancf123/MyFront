@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="full-screen" content="yes" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta name="360-fullscreen" content="true" />
+		<meta name="x5-page-mode" content="app" />
+		<meta name="browsermode" content="application" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="../jslib/weui/css/weui.min.css">
+		<link rel="stylesheet" href="../css/weui.ext.css">
+		<script type="text/javascript">
+			window.onload = function() {
+				var inputs = document.getElementsByTagName("input"),
+					aeror = document.getElementById("aerror"),
+					obtn = document.getElementById("bind");
+				obtn.onclick = function() {
+					for (var i = 0; i < inputs.length; i++) {
+						if (inputs[i].value == "") {
+							aeror.style.display = "block";
+						} else {
+							aeror.style.display = "none";
+						}
+					}
+				}
+			}
+		</script>
+		<title></title>
+	</head>
+
+	<body>
+		<div class="weui_cells_title">&nbsp;&nbsp;</div>
+		<div class="weui_cells weui_cells_form">
+			<div class="weui_cell">
+				<div class="weui_cell_hd"><label class="weui_label">和包账户</label></div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input class="weui_input" type="number" pattern="[0-11]*" placeholder="请输入11位手机号码" />
+				</div>
+			</div>
+			<div class="weui_cell weui_vcode">
+				<div class="weui_cell_hd"><label class="weui_label">图形验证码</label></div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input id="picmeg" class="weui_input1" type="text" placeholder="" />
+				</div>
+				<div class="weui_cell_ft">
+					<img src="../image/vcode.jpg" />
+				</div>
+			</div>
+			<div class="weui_cell">
+				<div class="weui_cell_hd"><label class="weui_label">短信验证码</label></div>
+				<div class="weui_cell_bd weui_cell_primary">
+					<input id="smeg" class="weui_input" type="number" placeholder="" />
+					<a href="javascript:;" class="weui_btn weui_btn_mini  weui_btn_primary  weui_btn_blue a_pos">获取验证码</a>
+				</div>
+			</div>
+		</div>
+		<div class="hd"><span style="display:none;" id="aerror">图形验证码输入有误，请重新输入</span></div>
+		<div class="bd spacing" id="bind"><a class="weui_btn weui_btn_primary weui_btn_blue">现在绑定</a>
+		</div>
+	</body>
+
+</html>

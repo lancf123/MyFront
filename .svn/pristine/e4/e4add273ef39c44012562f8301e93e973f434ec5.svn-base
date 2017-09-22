@@ -1,0 +1,8 @@
+<form id="hebaoEntryForm" method="get">
+	<input type="hidden" id="MBL_NO_HIDDEN" name="MBL_NO"/>
+	<input type="hidden" id="REQ_TM_HIDDEN" name="REQ_TM"/>
+	<input type="hidden" id="TOKEN_HIDDEN" name="Token"/>
+	<input type="hidden" id="COOP_ID_HIDDEN" name="COOP_ID"/>
+    <input type="hidden" id="ACCESS_TOKEN_HIDDEN" name="ACCESS_TOKEN"/>
+    <input type="hidden" id="SIG_VAL_HIDDEN" name="SIG_VAL"/>
+</form>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="full-screen" content="yes" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta name="360-fullscreen" content="true" />
+		<meta name="x5-page-mode" content="app" />
+		<meta name="browsermode" content="application" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="../jslib/weui/css/weui.min.css">
+		<link rel="stylesheet" href="../css/weui.ext.css">
+		<link rel="stylesheet" href="../css/font.css">
+		<title>我的和包</title>
+	</head>
+
+	<body>
+		<section>
+			<div class="part">
+				<a href="Recharge.html"><div class="part-a"><span class="icon-icon_money"><i>和包账户</i></span></div></a>
+				<a  href="help.html"><div class="part-b"><span class="icon-icon_CustomerService"><i>帮助中心</i></span></div></a>
+				<a  href="intro.html"><div class="part-c"><span class=" icon-icon_Information"><i>公司介绍</i></span></div></a>
+				<a  href="jobs.html"><div class="part-d"><span class="icon-icon_jobus"><i>和包招聘</i></span></div></a>
+			</div>
+        <div class="b_pos">
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg ">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb" src="../../bin/WebContent/image/pig.png" alt="">
+                     <img  style="display:none;"class="weui_media_appmsg_thumb" src=" ../../bin/WebContent/image/touxiang.png" alt="">
+
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title f14">和小宝</h4>
+                    <p class="weui_media_desc f14">手机号：13998606821</p>
+                    <i style="display:none;">现在绑定</i>
+                    <i style="color:#dedede">解除绑定</i>
+                </div>
+                </a>
+                <div class="red_font">提示：您在一天内已经绑定3次手机号码，已无法解除绑定</div>
+
+         </div>
+		</section>
+
+	</body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+<!-- 第三方样式表 -->
+<!-- WeUI样式表 -->
+<link rel="stylesheet" type="text/css" href="../jslib/weui/css/weui.min.css">
+<!-- 系统样式表 -->
+<link rel="stylesheet" type="text/css" href="../css/cm_wallet.css">
+<!-- WeUI扩展样式表 -->
+<link rel="stylesheet" type="text/css" href="../css/weui.ext.css">
+<!-- 系统业务画面样式表 -->
+<link rel="stylesheet" type="text/css" href="../css/cm_wallet_biz.css">
+<!-- 第三方库 -->
+<!-- JQuery -->
+<script src="../jslib/jquery/js/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var weui_cells = $(".weui_cell");
+		weui_cells.click(function() {
+			$(this).next().slideToggle("fast")
+
+			if ($(this).children()[1].className == "weui_cell_down") {
+				$(this).children()[1].className = "weui_cell_ft";
+			} else {
+				$(this).children()[1].className = "weui_cell_down";
+			}
+		})
+	})
+</script>
+<title>充话费</title>
+</head>
+<body>
+		<section>
+			<div class="blue_bg h1_small">
+				<h1>充话费</h1><img src="../image/qs.png" width="45px" height="45px" alt=""></div>
+			<div class="weui_cells weui_cells_access top0">
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que1">
+						<p>充话费是否支持联通、电信用户？</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">暂不支持给联通、电信号码缴费,待充值的手机号必须为中国移动用户。</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que2">
+						<p>和包充话费有次数限制吗？</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">和包充话费次数限额以和包账户和被充值号码为准<br> 1) 和包账户单一手机号通过和包充话费单日上限为8笔,单月充值上限为50笔;<br> 2) 被充值手机号单日充值上限为5笔。
+
+				</div>
+
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que3">
+						<p>和包充话费是否有优惠？</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">充话费优惠活动由中国移动提供,具体优惠力度也因省份不同而有所差异,请以被充值号码归属省为准。
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>充话费充错了号码，是否可以返还？</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">如果您不小心充错了手机号码，将无法进行退费,所以请您在充值时务必认真核对手机号码。
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>通过和包进行了充值，和包账户或银行卡的钱已经扣款，但话费余额到现在还没有增加？</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">一般情况下系统实时(可能是几秒或几分钟)为您充入话费,遇系统繁忙等情况可能会存在延时到账,您可至本省网上营业厅"充值缴费记录"中查询,若充值失败,我们会及时进行退款处理。
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>手机话费充值失败退款多久能到账</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">如果您的交易是失败的,款项会原路返回支付时所使用的账户或银行卡,正常情况,退款的时间如下:<br> 1) 和包账户余额支付: 1-3个工作日内款项退回到您的和包账户;<br> 2) 银行卡支付:3-7个工作日内退回到您支付的银行卡内。<br> 提示:若遇节假日会顺延,请您及时查询账户信息。
+
+				</div>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary" id="que4">
+						<p>和包充话费是否提供发票？</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<div class="wrap">话费充值成功后,您可凭本人有效身份证件或服务密码到您当地移动营业厅打印发票,具体操作以各省营业厅为准。
+				</div>
+
+			</div>
+		</section>
+</body>
+</html>

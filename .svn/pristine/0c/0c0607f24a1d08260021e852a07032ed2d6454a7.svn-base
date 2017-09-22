@@ -1,0 +1,148 @@
+/**
+ * 我的钱包画面
+ *
+ * @ViewModel
+ *
+ * 修改历史 REV. 修改时间 修改人 修改内容 ------- --------------- ----------------
+ * ------------------
+ */
+var MyWalletViewModel = function() {
+
+	/**
+	 * 画面加载
+	 *
+	 * @public
+	 */
+	var init = function() {
+		_log.debug("myWallet page init!");
+		// 【余额及消费记录查询】点击事件
+		_html.bindEventById("balance", "click", this.h5SsoProcess);
+		// // 【客服中心】点击事件
+		// _html.bindEventById("help", "click",
+		// this.redirect);
+		// // 【公司及业务介绍】点击事件
+		// _html.bindEventById("intro", "click",
+		// this.redirect);
+		// // 【和包招聘】点击事件
+		// _html.bindEventById("jobs", "click",
+		// this.redirect);
+		// 测试解除绑定
+		// 如果未绑定的场合，解绑按钮不显示
+		// 调用服务检查是否已绑定手机
+		_service.invoke("SPI0205", {}, function(isBindMobile) {
+			if (isBindMobile) {
+				// 取得微信头像等信息
+				_service.invoke("SPI0601", {}, function(weiChatUserInfo) {
+					$("#headImg").attr("src", weiChatUserInfo.userHeadImgUrl);
+					$("#nickName").text(weiChatUserInfo.userNickName);
+				}, function(result) {});
+
+				_service.invoke("SPI0602", {}, function(bindUserInfo) {
+					var mobileNumber = bindUserInfo.userMobile;
+					$("#userMobile").text(mobileNumber.substring(0,mobileNumber.length-(mobileNumber.substring(3)).length)+"********"+mobileNumber.substring(7));
+				}, function(result) {});
+
+				_service.invoke("SPI0209", {}, function(bindNumber) {
+					if (bindNumber < 3) {
+						_html.bindEventById("unBind_i", "click", function() {
+							// 确认的diglog
+							var message = new Message("MCMSG00008");
+							_ui.showModalDialog("消息", message.message, function(callbackValue) {
+								if (callbackValue) {
+									var result = _service.invokeSync("SPI0208");
+									if (!_util.isEmpty(result)) {
+										$.getScript(result,function() {
+											_log.debug("LOGOUT SUCCESS");
+										});
+										$("#unBind_id").hide();
+										return;
+									}
+								}
+							}, "取消", "确定");
+						});
+					} else {
+						$("#unBind_i").unbind().css({ "color" : "#dedede" });
+						$("#cue").show();
+					}
+				}, function(result) {});
+
+				$("#unBind_id").show();
+			} else {
+				$("#unBind_id").hide();
+			}
+		}, function(result) {
+			$("#unBind_id").hide();
+		});
+	};
+	this.init = init;
+
+	/**
+	 * tab切换事件处理
+	 *
+	 * @event
+	 */
+	var redirect = function(evt) {
+
+		$this = $(evt.currentTarget);
+		var pageId = $this.attr('id');
+
+		_url.redirectTo(_config.WEB_INNER_DIAPATCHER_URL + "?pageId=" + pageId,
+				false);
+	};
+	this.redirect = redirect;
+
+	/**
+	 * h5绑定画面单点登录
+	 *
+	 * @event
+	 */
+	var h5SsoProcess = function() {
+		var menuInfo = {
+			"isBindingKbn" : 1,
+			"isSsoKbn" : 1,
+			"redirectPath" : "01"
+		};
+		// 取得目标画面信息
+		// 实例化菜单Model
+		var menuModel = new MenuModel();
+		targetPageObject = menuModel.getTargetPageInfo(menuInfo);
+		// 系统内部画面跳转的场合
+		if (!_util.isEmpty(targetPageObject.pageId)) {
+			pageParams = !_util.isEmpty(targetPageObject.pageParams) ? targetPageObject.pageParams
+					: [];
+			pageParams.unshift(targetPageObject.pageId);
+			_ui.forwardTo.apply(null, pageParams);
+			// 系统外部画面跳转的场合
+		} else if (!_util.isEmpty(targetPageObject.redirectUri)) {
+			_url.redirectTo(targetPageObject.redirectUri, true);
+			// 对应的菜单信息不存在
+		} else {
+			// 跳转至错误画面,404?
+		}
+	};
+	this.h5SsoProcess = h5SsoProcess;
+
+	/**
+	 * 解绑
+	 *
+	 * @event
+	 */
+	var unBind = function() {
+
+		// 确认的diglog
+		var message = new Message("MCMSG00008");
+		_ui.showModalDialog("消息", message.message, function(callbackValue) {
+			if (callbackValue) {
+				var result = _service.invokeSync("SPI0208");
+				if (!_util.isEmpty(result)) {
+					$.getScript(result,function() {
+						_log.debug("LOGOUT SUCCESS");
+					});
+					$("#unBind_id").hide();
+					return;
+				}
+			}
+		}, "取消", "确定");
+	};
+	this.unBind = unBind;
+};

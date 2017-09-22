@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="full-screen" content="yes" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta name="360-fullscreen" content="true" />
+		<meta name="x5-page-mode" content="app" />
+		<meta name="browsermode" content="application" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="../jslib/weui/css/weui.min.css">
+		<link rel="stylesheet" href="../css/weui.ext.css">
+		<script type="text/javascript" src="../jslib/jquery/js/jquery.min.js"></script>
+		<title>充值</title>
+		<script type="text/javascript">
+			function hideloading() {
+				var loading = document.getElementById('loadingToast');
+				var a = document.getElementsByTagName("a");
+				loading.style.display = 'none';
+				a.onclick = function() {
+					if (this.disabled) {
+						return false;
+					}
+					this.disabed = true;
+				};
+			}
+		</script>
+	</head>
+
+	<body onload="hideloading()">
+		<section>
+			<iframe id="iframepage" src="Fee-balance.html " frameborder="0" marginheight="0" marginwidth="0" onload="iFrameHeight()"></iframe>
+			<div class="tab" id="tab">
+				<ul>
+					<li class="active"><a href="#">充话费</a></li>
+					<li class=""><a href="#">冲流量</a></li>
+					<li class=""><a href="#">话费余额</a></li>
+				</ul>
+				<p><b></b></p>
+			</div>
+		</section>
+
+		<!-- loading toast -->
+		<div id="loadingToast" class="weui_loading_toast">
+			<div class="weui_mask_transparent"></div>
+			<div class="weui_toast">
+				<div class="weui_loading">
+					<div class="weui_loading_leaf weui_loading_leaf_0"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_1"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_2"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_3"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_4"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_5"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_6"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_7"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_8"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_9"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_10"></div>
+					<div class="weui_loading_leaf weui_loading_leaf_11"></div>
+				</div>
+				<p class="weui_toast_content">数据加载中</p>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function iFrameHeight() {
+				var ifm = document.getElementById("iframepage");
+				ifm.height = window.innerHeight - 50 + 'px';
+				ifm.width = window.innerWidth + 'px';
+			}
+			$('.tab li').click(function() {
+				var liindex = $('.tab li ').index(this);
+				$(this).addClass('active').siblings().removeClass('active');
+				$(this).addClass('on').siblings().removeClass('on');
+				$('.tab li').eq(liindex).fadeIn(2000).siblings('.tab active').hide();
+				var liWidth = $('.tab li').width();
+				$('.tab p').stop(false, true).animate({
+					'left': liindex * liWidth + 'px'
+				}, 200);
+			});
+		</script>
+
+	</body>
+
+</html>

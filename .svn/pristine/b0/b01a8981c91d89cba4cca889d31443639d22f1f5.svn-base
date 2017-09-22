@@ -1,0 +1,51 @@
+/**
+ * 和包业务线画面跳转代理
+ *
+ * @ViewModel
+ *
+ * @param {String}
+ *            type 和包业务画面种别
+ *
+ * 修改历史 REV. 修改时间 修改人 修改内容 ------- --------------- ----------------
+ * ------------------
+ */
+var HebaoEntryViewModel = function(type) {
+
+	/**
+	 * 画面加载
+	 *
+	 * @public
+	 */
+	var init = function() {
+
+		// 外部系统调用已经绑定的情况，直接单点登录
+		if (type.indexOf("Token") > -1) {
+			var redirechPathArray = type.split("&");
+			var tokenArray = redirechPathArray[1].split("=");
+			_globalParam.set(_config.TOKEN_KEY, tokenArray[1]);
+			type = redirechPathArray[0];
+		}
+		_log.debug("hebao entry page init!");
+		var hebaoEntryForm = _html.byId("hebaoEntryForm");
+		// 访问和包h5鉴权单点登录请求电文
+		var reqInfo = _service.invokeSync("SPI0204", type);
+		// 如果取得Token
+		// 设置提交地址
+		hebaoEntryForm.setAttribute("action", reqInfo.h5AuthUrl);
+		// 手机号
+		_html.setValue("MBL_NO_HIDDEN", reqInfo.userMobile);
+		// 请求时间
+		_html.setValue("REQ_TM_HIDDEN", reqInfo.reqTime);
+		// 合作方唯一ID
+		_html.setValue("COOP_ID_HIDDEN", reqInfo.coopID);
+		// 微信平台侧内部token
+		_html.setValue("TOKEN_HIDDEN", _globalParam.get(_config.TOKEN_KEY));
+		// 访问Token
+		_html.setValue("ACCESS_TOKEN_HIDDEN", reqInfo.accessToken);
+		// 数字签名（大写）
+		_html.setValue("SIG_VAL_HIDDEN", reqInfo.sigVal);
+		// 跳转至Hebao业务画面
+		hebaoEntryForm.submit();
+	};
+	this.init = init;
+};

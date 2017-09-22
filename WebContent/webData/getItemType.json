@@ -1,0 +1,22 @@
+{
+    "itemTypeList": [
+        {
+            "code": "01",
+            "code_value": "漢字"
+        },
+        {
+            "code": "02",
+            "code_value": "数字"
+        }
+    ],
+    "lineTypeList": [
+        {
+            "code": "01",
+            "code_value": "罫線なし"
+        },
+        {
+            "code": "02",
+            "code_value": "四角罫線"
+        }
+    ]
+}

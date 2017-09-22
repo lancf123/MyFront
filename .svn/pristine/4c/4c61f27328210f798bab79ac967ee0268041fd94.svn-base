@@ -1,0 +1,5 @@
+
+/* 错误消息样式 */
+.wallet_error {
+    color: #EF4F4F;
+}

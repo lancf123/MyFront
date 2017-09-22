@@ -1,0 +1,40 @@
+/**
+ * 帮助画面
+ *
+ * @ViewModel
+ *
+ * 修改历史 REV. 修改时间 修改人 修改内容 ------- --------------- ----------------
+ * ------------------
+ */
+var HelpViewModel = function() {
+
+	/**
+	 * 画面加载
+	 *
+	 * @public
+	 */
+	var init = function() {
+		_log.debug("Help page init!");
+		// 【和包账户】点击事件
+		_html.bindEventById("help_hebao", "click", this.redirect);
+		_html.bindEventById("help_huafei", "click", this.redirect);
+		_html.bindEventById("help_ecoupons", "click", this.redirect);
+		_html.bindEventById("help_hejubao", "click", this.redirect);
+	};
+	this.init = init;
+
+	/**
+	 * tab切换事件处理
+	 *
+	 * @event
+	 */
+	var redirect = function(evt) {
+
+		$this = $(evt.currentTarget);
+		var pageId = $this.attr('id');
+
+		_url.redirectTo(_config.WEB_INNER_DIAPATCHER_URL + "?pageId=" + pageId,
+				false);
+	};
+	this.redirect = redirect;
+};

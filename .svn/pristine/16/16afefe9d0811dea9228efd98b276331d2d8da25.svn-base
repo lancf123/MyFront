@@ -1,0 +1,59 @@
+
+<section>
+	<iframe id="iframepage" src="" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+	<div class="tab" id="yld_tab">
+		<ul>
+			<li class="active on" type="1">话费余额</li>
+			<li class="" type="2">冲流量</li>
+			<li class="" type="3">充话费</li>
+		</ul>
+		<p ><b></b></p>
+	</div>
+			<section>
+			<div class="blue_h_bg">
+            <span>手机号:<span id="mobileNo">1394099999</span></span>
+           <h2>话费余额<br><h1><span id="mobileNo">55.98</span><b>元</b></h1></h2>
+            </div>
+            <br>
+            	<div class="weui_cells weui_cells_access top0">
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary">
+						<img src="../image/huafei.png" width="30px">
+						<p class="dis">充话费</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<a class="weui_cell" href="javascript:;">
+					<div class="weui_cell_bd weui_cell_primary">
+						<img src="../image/liuliang.png" width="30px">
+						<p class="dis">充流量</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+
+			</div>
+</section>
+    <!-- loading -->
+    <div id="loadingToast" class="weui_loading_toast">
+        <div class="weui_mask_transparent"></div>
+        <div class="weui_toast">
+            <div class="weui_loading">
+                <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+                <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+            </div>
+            <p class="weui_toast_content">数据加载中</p>
+        </div>
+    </div>
+    <!-- /.loading -->

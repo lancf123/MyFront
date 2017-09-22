@@ -1,0 +1,22 @@
+	<link rel="stylesheet" href="css/font.css">
+	<section>
+		<div class="part">
+			<a href="javascript:;" id="balance"><div class="part-a"><span class="icon-icon_money"><i>和包账户</i></span></div></a>
+			<a href="html/help.html" id="help"><div class="part-b"><span class="icon-icon_CustomerService"><i>帮助中心</i></span></div></a>
+			<a href="html/intro.html" id="intro"><div class="part-c"><span class=" icon-icon_Information"><i>公司介绍</i></span></div></a>
+			<a href="html/jobs.html" id="jobs"><div class="part-d"><span class="icon-icon_jobus"><i>和包招聘</i></span></div></a>
+		</div>
+        <div id="unBind_id" class="b_pos" style="display: none;">
+            <a href="javascript:void();" class="weui_media_box weui_media_appmsg" >
+              <div class="weui_media_hd">
+                <img id="headImg" class="weui_media_appmsg_thumb" src="" alt="">
+              </div>
+              <div class="weui_media_bd">
+                <h4 id="nickName" class="weui_media_title f14"></h4>
+                <p id="userMobile" class="weui_media_desc f14"></p>
+                <i id="unBind_i">解除绑定</i>
+              </div>
+            </a>
+            <div id="cue" class="red_font" style="display:none;">提示：您今日已绑定3次手机号码，无法解除绑定</div>
+        </div>
+	</section>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="format-detection" content="telephone=no" />
+<meta name="msapplication-tap-highlight" content="no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+<!-- 第三方样式表 -->
+<!-- WeUI样式表 -->
+<link rel="stylesheet" type="text/css" href="../jslib/weui/css/weui.min.css">
+<!-- 系统样式表 -->
+<link rel="stylesheet" type="text/css" href="../css/cm_wallet.css">
+<!-- WeUI扩展样式表 -->
+<link rel="stylesheet" type="text/css" href="../css/weui.ext.css">
+<!-- 系统业务画面样式表 -->
+<link rel="stylesheet" type="text/css" href="../css/cm_wallet_biz.css">
+<!-- 第三方库 -->
+<!-- JQuery -->
+<script src="../jslib/jquery/js/jquery.js"></script>
+
+<title>客服中心</title>
+</head>
+<body>
+	<section>
+		<div class="blue_bg">
+			<p class="bubble">Hi&nbsp;,&nbsp;您有什么要帮助的？</p>
+			<img src="../image/pig.png" width="110px" height="110px" alt=""></div>
+		<div class="weui_cells weui_cells_access top0">
+			<a class="weui_cell" href="help_hebao.html">
+				<div class="weui_cell_bd weui_cell_primary">
+					<img src="../image/img1.png" width="30px">
+					<p class="dis">和包账户</p>
+				</div>
+				<div class="weui_cell_ft">
+				</div>
+			</a>
+			<a class="weui_cell" href="help_huafei.html">
+				<div class="weui_cell_bd weui_cell_primary">
+					<img src="../image/img2.png" width="30px">
+					<p class="dis">话费</p>
+				</div>
+				<div class="weui_cell_ft">
+				</div>
+			</a>
+			<a class="weui_cell" href="help_ecoupons.html">
+				<div class="weui_cell_bd weui_cell_primary">
+					<img src="../image/img3.png" width="30px">
+					<p class="dis">电子券</p>
+				</div>
+				<div class="weui_cell_ft">
+				</div>
+			</a>
+			<a class="weui_cell" href="help_hejubao.html">
+				<div class="weui_cell_bd weui_cell_primary">
+					<img src="../image/img4.png" width="30px">
+					<p class="dis">和聚宝</p>
+				</div>
+				<div class="weui_cell_ft">
+				</div>
+			</a>
+		</div>
+	</section>
+</body>
+</html>

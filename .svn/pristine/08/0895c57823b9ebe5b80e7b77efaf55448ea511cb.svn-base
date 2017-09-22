@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/jee
+     http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	 http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	 http://www.springframework.org/schema/util
+	 http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	 http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	 http://www.springframework.org/schema/mvc
+	 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	 ">
+
+	<context:component-scan base-package="com.dora,com.wallet" />
+	<bean id="beanBasePackage" class="java.lang.String" scope="singleton">
+		<constructor-arg>
+			<value>com.dora,com.wallet</value>
+		</constructor-arg>
+	</bean>
+
+    <!-- Spring MVC -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<util:list id="beanList">
+				<ref bean="stringHttpMessageConverter" />
+				<ref bean="formHttpMessageConverter" />
+			</util:list>
+		</property>
+	</bean>
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter" />
+	<bean id="formHttpMessageConverter" class="org.springframework.http.converter.FormHttpMessageConverter" />
+	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	
+    <!-- Logger -->
+	<bean name="appLogger" class="com.dora.log.LogFactory" factory-method="getAppLogger" />
+	<bean name="dataLogger" class="com.dora.log.LogFactory" factory-method="getDataLogger" />
+	<bean name="sysLogger" class="com.dora.log.LogFactory" factory-method="getSysLogger" />
+
+	<!-- Bean Factory -->
+	<bean id="beanFactory" class="com.dora.bean.impl.BeanFactoryImpl" scope="singleton">
+		<property name="beanBasePackage" ref="beanBasePackage" />
+	</bean>
+	<!-- AJAX Parser & Render -->
+	<bean id="ajaxParser" class="com.dora.ajax.impl.JSONParserImpl" scope="singleton">
+		<property name="beanBasePackage" ref="beanBasePackage" />
+	</bean>
+	<bean id="ajaxRender" class="com.dora.ajax.impl.JSONRenderImpl" scope="singleton">
+		<property name="beanBasePackage" ref="beanBasePackage" />
+	</bean>
+
+	<!-- Exception Handlers -->
+	<bean id="validationExceptionHandler" class="com.dora.exception.impl.ValidationExceptionHandlerImpl" scope="singleton" />
+	<bean id="applicationExceptionHandler" class="com.dora.exception.impl.ApplicationExceptionHandlerImpl" scope="singleton" />
+	<bean id="systemExceptionHandler" class="com.dora.exception.impl.SystemExceptionHandlerImpl" scope="singleton" />
+	<bean id="exceptionHandlers" class="java.util.HashMap" scope="singleton">
+		<constructor-arg>
+			<map>
+				<entry key="com.dora.exception.ValidationException" value-ref="validationExceptionHandler" />
+				<entry key="com.dora.exception.ApplicationException" value-ref="applicationExceptionHandler" />
+				<entry key="com.dora.exception.SystemException" value-ref="systemExceptionHandler" />
+				<entry key="java.lang.Exception" value-ref="systemExceptionHandler" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- Properties Accesses -->
+	<bean id="messageProperties" class="com.dora.message.impl.MessagePropertiesImpl" scope="singleton" init-method="init">
+		<constructor-arg value="res/msgSystem,res/msgApplication" />
+	</bean>
+
+	<!-- HTTP access setting -->
+	<bean id="jsonHttpProxy" class="com.dora.http.impl.HttpProxyImpl" scope="singleton">
+		<property name="appContentType" value="application/json; charset=UTF-8" />
+		<property name="entityContentType" value="text/json" />
+		<property name="entityCharset" value="UTF-8" />
+		<property name="paramCharset" value="UTF-8" />
+	</bean>
+	<bean id="utf8UrlEncodedHttpProxy" class="com.dora.http.impl.HttpProxyImpl" scope="singleton">
+		<property name="appContentType" value="application/x-www-form-urlencoded" />
+		<property name="entityContentType" value="application/x-www-form-urlencoded" />
+		<property name="entityCharset" value="UTF-8" />
+		<property name="paramCharset" value="UTF-8" />
+	</bean>
+	<bean id="gbkUrlEncodedHttpProxy" class="com.dora.http.impl.HttpProxyImpl" scope="singleton">
+		<property name="appContentType" value="application/x-www-form-urlencoded" />
+		<property name="entityContentType" value="application/x-www-form-urlencoded" />
+		<property name="entityCharset" value="GB2312" />
+		<property name="paramCharset" value="GB2312" />
+	</bean>
+	<bean id="defaultUrlEncodedHttpProxy" class="com.dora.http.impl.HttpProxyImpl" scope="singleton">
+		<property name="appContentType" value="application/x-www-form-urlencoded" />
+		<property name="entityContentType" value="application/x-www-form-urlencoded" />
+	</bean>	
+
+</beans>

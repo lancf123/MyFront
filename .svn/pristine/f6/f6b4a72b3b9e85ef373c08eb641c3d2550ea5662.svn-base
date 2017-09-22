@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="appender_applog" class="com.dora.log.impl.NodeRollingLogAppender">
+		<param name="Threshold" value="debug" />
+		<param name="File" value="/app/wch-new/logs/cm_wallet_web/application_$nodeId$.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="2048KB" />
+		<param name="MaxBackupIndex" value="3" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%5p][%X{host}][%X{thread}][%X{user}][%X{client}][%X{system}][%X{service}] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="appender_syslog" class="com.dora.log.impl.NodeRollingLogAppender">
+		<param name="Threshold" value="debug" />
+		<param name="File" value="/app/wch-new/logs/cm_wallet_web/system_$nodeId$.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="4096KB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%5p][%X{host}][%X{thread}][%X{user}][%X{client}][%X{system}][%X{service}] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="appender_datalog" class="com.dora.log.impl.NodeRollingLogAppender">
+		<param name="Threshold" value="debug" />
+		<param name="File" value="/app/wch-new/logs/cm_wallet_web/data_$nodeId$.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="4096KB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%5p][%X{host}][%X{thread}][%X{user}][%X{client}][%X{system}][%X{service}] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="appender_console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="info" />
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy/MM/dd HH:mm:ss.SSS}][%5p][%X{host}][%X{thread}][%X{user}][%X{client}][%X{system}][%X{service}] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="appender_db" class="org.apache.log4j.jdbc.JDBCAppender">
+		<param name="Threshold" value="info" />
+		<param name="BufferSize" value="10" />
+		<param name="URL" value="jdbc:mysql://localhost:3306/dora_sample" />
+		<param name="driver" value="com.mysql.jdbc.Driver" />
+		<param name="user" value="root" />
+		<param name="password" value="ZAQ12wsx" />
+		<param name="sql" value="insert into ERROR_LOG(LOG_DATE,LOG_LEVEL,LOG_HOST,LOG_THREAD,LOG_USER,LOG_CLIENT,LOG_SYSTEM,LOG_SERVICE,LOG_MESSAGE) 
+		values ('%d{yyyy-MM-dd HH:mm:ss.SSS}','%p','%X{host}','%X{thread}','%X{user}','%X{client}','%X{system}','%X{service}','%m')" />
+	</appender>
+	
+	<appender name="ASYNCOUT" class="org.apache.log4j.AsyncAppender">    
+     	<param name="BufferSize" value="8192" />    
+   		<appender-ref ref="appender_db" />    
+	</appender>
+
+	<category name="applog">
+		<level value="debug" />
+		<appender-ref ref="appender_applog" />
+		<appender-ref ref="appender_console" />
+		<!-- 
+		<appender-ref ref="appender_db" />
+		 -->
+	</category>
+
+	<category name="syslog">
+		<level value="debug" />
+		<appender-ref ref="appender_syslog" />
+		<appender-ref ref="appender_console" />
+	</category>
+
+	<category name="datalog">
+		<level value="debug" />
+		<appender-ref ref="appender_datalog" />
+		<appender-ref ref="appender_console" />
+	</category>
+
+	<root></root>
+</log4j:configuration>

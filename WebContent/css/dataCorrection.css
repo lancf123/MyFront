@@ -1,0 +1,31 @@
+.numDiv {
+    position: absolute;
+	width:20px;height:20px;
+	border-radius:10px;
+	background: #5B9BD5;
+	line-height:20px;
+	font-size:12px;
+	text-align:center;
+	color:#FFF;
+
+}
+
+/*#dataCorrectionTbl tr.highlight{
+	background: red;
+}*/
+.dragContainer {
+    background-color: #FFF;
+    border: 3px solid red;
+    position: absolute;
+    filter: alpha(opacity=0);
+    background: rgba(255,0,0,0);
+}
+.dragContainer.selected {
+	border:3px solid red;
+	background:rgba(79,138,179,0.4);
+}
+
+#dataCorrectionTbl tbody tr:hover
+{ 
+	background: #E4EDF6;
+}

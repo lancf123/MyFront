@@ -1,0 +1,5 @@
+## Select log implement class
+## org.apache.commons.logging.Log=org.apache.commons.logging.impl.Jdk14Logger
+## org.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog
+
+org.apache.commons.logging.Log=org.apache.commons.logging.impl.Log4JLogger

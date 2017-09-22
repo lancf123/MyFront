@@ -1,0 +1,13 @@
+{ 
+     "item_recogresult":
+       [
+           {    "item_id": "item1001" ,
+                "item_name": "都道府県",
+                "item_value" : "港区赤坂1-11-44"
+           },
+           {    "item_id": "item1002" ,
+                "item_name": "都道府県",
+                "item_value" : "束京都"
+           }
+       ]
+}

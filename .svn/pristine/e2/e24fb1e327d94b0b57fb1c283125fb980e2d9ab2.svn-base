@@ -1,0 +1,20 @@
+系统回调URL的格式声明
+ 
+1.系统内部调用： 
+ 1.1 AJAX调用：
+ <host:port>/web/ss/ai/<sysId>/<serviceId>
+ 1.2 普通Web回调： 
+ <host:port>/web/ss/si/cb/pres
+
+2.外部系统调用：
+ 2.1 微信点击推
+ <host:port>/web/wx/cb/proc
+ 2.2 微信页面迁移
+ <host:port>/web/wx/cb/pres
+ 2.3 微信页面迁移（SSO）
+ <host:port>/web/wx/cb/pres
+
+－－－－－－－－－－－－－－－－－－－－－－－
+微信：
+消息接口：<host:port>/cm_wallet_web/web/wx/cb/proc
+view类型菜单接口：<host:port>/cm_wallet_web/web/wx/cb/pres?menuIndex=

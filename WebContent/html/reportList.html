@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="utf-8">
+    <title>ArmadaEYE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- The styles -->
+    <link id="bs-css" href="../css/bootstrap/bootstrap-cerulean.min.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/jquery/jquery.dataTables.css" rel="stylesheet">
+    <link href="../css/bootstrap/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="../css/reportList.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/viewer/viewer.css">
+
+    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- The fav icon -->
+    <link rel="shortcut icon" href="../image/eye.png">
+
+</head>
+
+<body>
+    <!-- topbar starts -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-inner">
+            <button type="button" class="navbar-toggle pull-left animated flip">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+            <a class="navbar-brand" href="index.html">
+                <img alt="ArmadaEYE Logo" src="../image/eye.png" class="hidden-sm hidden-xs" />
+                <br/><span>ArmadaEYE</span>
+            </a>
+            <!-- user dropdown starts -->
+            <div class="btn-group pull-right">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> 赤坂太郎</span>
+				<span class="caret"></span>
+			</button>
+                <ul class="dropdown-menu">
+                    <!--<li><a href="#">Profile</a></li>
+				<li class="divider"></li>-->
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </div>
+            <!-- user dropdown ends -->
+            <div class="btn-group pull-right theme-container tada">
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<i class="glyphicon glyphicon-globe"></i><span
+					class="hidden-sm hidden-xs"> Change Language</span>
+				<span class="caret"></span>
+			</button>
+                <ul class="dropdown-menu" id="language">
+                    <li><a data-value="en" href="#"><i class="whitespace"></i>English</a></li>
+                    <li><a data-value="ja" href="#"><i class="whitespace"></i>日本語</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- topbar ends -->
+    <div class="ch-container">
+        <div id="body-content">
+            <div class="row" style="background-color: #f5f5f5;" id="topMenu">
+                <ul class="collapse navbar-collapse nav navbar-nav top-menu">
+                    <li><a href="index.html"><i class="glyphicon glyphicon-eye-open"></i>ホーム</a></li>
+                    <li><a href="templateList.html"><i class="glyphicon glyphicon-list-alt"></i>テンプレートリスト</a></li>
+                    <li><a href="templateSelect.html"><i class="glyphicon glyphicon-edit"></i>帳票アップロード</a></li>
+                    <li class="selected"><a href="#"><i class="glyphicon glyphicon-edit"></i>帳票一覧</a></li>
+                </ul>
+            </div>
+            <div class="row">
+                <div id="content" class="col-lg-12 col-sm-12 toggled">
+                    <!-- content starts -->
+                    <!-- <div>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="index.html">ホーム</a>
+                            </li>
+                            <li>
+                                <a href="#">帳票一覧</a>
+                            </li>
+                        </ul>
+                    </div> -->
+                    <div class="row">
+                        <div class="box col-lg-12 col-md-12 col-sm-12">
+                            <!--Data List-->
+                            <div class="box-inner">
+                                <div class="box-content col-lg1 col-md1 col-sm-1"></div>
+                                <div class="box-content col-lg-10 col-md-10 col-sm-10">
+
+                                    <!-- <h2><strong><span class="title">帳票一覧</span></strong></h2> -->
+                                    <table id="reportsListTable" class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                                    </table>
+                                    
+                                    <div id="view_image" class="content-detail main-detail" style="position: relative;float:left; display:none">
+	                                   <div id="container" class="scan" style="overflow: auto;height:600px;position:relative;">
+	                                       <canvas id="myCanvas" style="border:1px;background:#f4f4f4;"></canvas>
+	                                   </div>
+	                                   <div id="imgDivId" style="display:none">
+	                                       <img id="reportImg" />
+	                                   </div>
+                                	</div>
+                                	<ul class="docs-pictures clearfix" style="display:none" >
+					            		<li><img id="image" alt="imageView"></li>
+					       			</ul>
+                                	
+                                    <div class="select-action">
+                                        <a href="#" class="btn btn-primary" style="width:100px" id="recognizeData">
+                                            <i class="glyphicon glyphicon-edit"></i>&nbsp;認識
+                                        </a>
+                                        <!--    <a href="dataCorrection.html" class="btn btn-primary" style="width:100px" data-dismiss="modal" id="correctBtn">補正</a> -->
+                                        <!--補正ページにリンク-->
+                                        <a href="#" class="btn btn-info btn-setting" id="csvExport">
+                                            <i class="glyphicon glyphicon-download"></i>&nbsp;CSV出力
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="overlay"></div>
+                    </div>
+                </div>
+                <!-- <div class="control-group control-btn" style="margin-top:10px;">
+                    <a class="btn btn-default control-btn-left" id="previous" href="#"><i class="glyphicon glyphicon-arrow-left"></i> Previous</a>
+                    <a class="btn btn-default control-btn-right " id="next" href="#">Next&nbsp&nbsp&nbsp <i class="glyphicon glyphicon-arrow-right"></i></a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <!-- file download modal -->
+    <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3>ファイルの出力</h3>
+                </div>
+                <div class="modal-body">
+                    <p>出力するファイルを選択</p>
+                   	<table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>項目</th>
+                                <th>選択</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>帳票ステータス</td>
+                                <td>
+                                    <form>
+                                    	<div class="radio">
+                                            <label><input type="radio" name="optradio" value="01" id="optradio1" checked="checked">全部</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="optradio" value="02" id="optradio2">認識済</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="optradio" value="03" id="optradio3">補正済</label>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                	<a href="#" class="btn btn-default csvExportBtn" data-dismiss="modal">ダウンロード</a>
+                    <!-- <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">補正済みファイルのみ</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">全てのファイル</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- recognize data modal -->
+    <div class="modal fade" id="recogDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>帳票データを認識しています</p>
+                    <img src="../image/loading.gif" class="center">
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cansel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer">
+    </div>
+    <br>
+    <div class="footer-content">
+        <p> <img src="../image/footer.png" alt="pic" width="35" height="27">A Production of Armada Project @CDC FS. Copy © 2017 Accenture Incorporated. All rights reserved.</p>
+    </div>
+
+    <!-- imgDisplayModal -->
+    <div id="imgDisplayModal" class="imgDisplayModal">
+        <span class="imgDisplayClose" it="imgDisplayClose">&times;</span>
+        <img class="imgDisplayModal-content" id="imgDisplayModalImg">
+        <div id="imgDisplayModalcaption"></div>
+    </div>
+
+    <!-- external javascript -->
+    <!-- jQuery -->
+    <!-- jQuery -->
+    <script src="../js/common/base.js"></script>
+    <script src="../jslib/bootstrap/bootstrap-toggle.min.js"></script>
+    <!-- data table plugin -->
+    <!-- 
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+     -->
+    <script src="../js/biz/reportList/reportList.js"></script>
+</body>
+</html>

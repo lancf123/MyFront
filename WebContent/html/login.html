@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	
+	<!-- Bootstrap自定义样式表 -->
+	
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrapValidator.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/viewer/viewer.css">
+	
+	<title>OCR识别系统</title>
+</head>
+<body>
+	<div class="containerArmada">
+		<div class="headerArmada">
+			<div class="header-wrapperArmada">
+				<div class="header-contentArmada">
+					<div class="eye-img">
+						<img src="../image/eye.png" alt="pic" width="65" height="40">
+					</div>
+					<div class="eye-text-en">
+						<div>Armada EYE</div>
+					</div>
+					<div class="eye-text-jp">
+						<div>人工知能ー手書き文字認識サービス</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="home">
+		<form id="loginForm">
+			<div
+				style="padding: 10px 15px; border-bottom: 1px solid transparent; border-top-right-radius: 3px; border-top-left-radius: 3px; color: #31708f; background-color: #d9edf7; border-color: #bce8f1">SignIn</div>
+			<img class="avator" src="../image/people.png" width="96" height="96" />
+			<div id="logincontext" style="padding: 50px;">
+				<div class="form-group has-feedback"> 
+					<label>username</label><input id="username" class="form-control" type="text" name="userName" /> <br>
+				</div>
+				<div class="form-group has-feedback">
+				    <label>password</label><input id="password" type="password" class="form-control" name="passWord" /> 
+				</div>
+				<input id="submitId" type="button">
+			</div>
+        
+		</form>
+	</div>
+</body>
+<script src="../js/common/base.js"></script>
+<script src="../js/biz/login/login.js"></script>
+</html>

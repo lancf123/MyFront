@@ -1,0 +1,54 @@
+<section id="ok" style="display:none;">
+	<div class="blue_h_bg">
+		<span>手机号:<span id="mobileNo"></span></span>
+		<h2>
+			话费余额<br>
+			<h1>
+				<span id="balance"></span><b>元</b>
+			</h1>
+		</h2>
+	</div>
+	<br>
+	<div class="weui_cells weui_cells_access top0">
+		<a class="weui_cell" href="https://p.10086.cn/ptw/topay.xhtml">
+			<div class="weui_cell_bd weui_cell_primary">
+				<img src="image/huafei.png" width="30px">
+				<p class="dis">充话费</p>
+			</div>
+			<div class="weui_cell_ft"></div>
+		</a> <a class="weui_cell" href="https://p.10086.cn/ptw/tocharge_flow.xhtml">
+			<div class="weui_cell_bd weui_cell_primary">
+				<img src="image/liuliang.png" width="30px">
+				<p class="dis">充流量</p>
+			</div>
+			<div class="weui_cell_ft"></div>
+		</a>
+	</div>
+</section>
+
+<section id="error" style="display: none;">
+				<div class="blue_h_bg">
+				<div class="h1_s center">
+                <h2 class="f18">话费余额</h2>
+                <br>
+                	<span class="p0" id="errArea"><span class="icon-icon_Warn"></span><span id="errMsg"></span><br>我们无法进行话费余额查询<br><br>－－－</span>
+				</div>
+			</div>
+			<br>
+	<div class="weui_cells weui_cells_access top0">
+		<a class="weui_cell" href="https://p.10086.cn/ptw/topay.xhtml">
+			<div class="weui_cell_bd weui_cell_primary">
+				<img src="image/huafei.png" width="30px">
+				<p class="dis">充话费</p>
+			</div>
+			<div class="weui_cell_ft"></div>
+		</a> <a class="weui_cell"
+			href="https://p.10086.cn/ptw/tocharge_flow.xhtml">
+			<div class="weui_cell_bd weui_cell_primary">
+				<img src="image/liuliang.png" width="30px">
+				<p class="dis">充流量</p>
+			</div>
+			<div class="weui_cell_ft"></div>
+		</a>
+	</div>
+</section>

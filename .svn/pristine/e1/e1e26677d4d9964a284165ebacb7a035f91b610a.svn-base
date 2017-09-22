@@ -1,0 +1,487 @@
+package com.wallet.cm.web.dispatcher;
+
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.wink.json4j.JSONException;
+import org.apache.wink.json4j.JSONObject;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.dora.message.MessageProperties;
+import com.dora.service.GenericServiceResponse;
+import com.dora.service.UserObject;
+import com.wallet.cm.entity.CmpMenuManagementDTO;
+
+/**
+ * WeChatFrontDispatcher
+ *
+ * @author Yue MA
+ *
+ */
+@Controller
+@RequestMapping("wx/")
+public class WeChatFrontDispatcher extends CommonServiceInvoker {
+
+    /**
+     * menuManagementMap
+     */
+    private static Map<String, CmpMenuManagementDTO> menuManagementMap;
+
+    /**
+     * Const define properties
+     */
+    @Resource(name = "constProperties")
+    private MessageProperties constProperties;
+
+    /**
+     * init
+     */
+    public synchronized void init(
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        try {
+            menuManagementMap = new HashMap<String, CmpMenuManagementDTO>();
+            String uri = constProperties.get("URL-RETRIEVE-MENU");
+            GenericServiceResponse<CmpMenuManagementDTO[]> serviceResponse = callService(request, response, uri, new Object[0], CmpMenuManagementDTO[].class);
+            if (serviceResponse.getResultCode() == GenericServiceResponse.SUCCESS) {
+                for (CmpMenuManagementDTO menuManagementDTO : serviceResponse.getResultObject()) {
+                    menuManagementMap.put(menuManagementDTO.getMenuIndex().toString(), menuManagementDTO);
+                }
+            }
+
+            super.getAppLogger().info("Load menu records:" + menuManagementMap.size());
+        } catch (Exception e) {
+            getAppLogger().error(e);
+        }
+    }
+
+    /**
+     * getMenuContent
+     *
+     * @param menuIndex
+     * @return
+     */
+    public CmpMenuManagementDTO getMenuContent(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            String menuIndex) {
+        if (menuManagementMap == null || menuManagementMap.size() == 0) {
+            getAppLogger().info("Init menu records");
+            init(request, response);
+        }
+        if (!menuManagementMap.containsKey(menuIndex)) {
+            getAppLogger().error("No found menu define for index:" + menuIndex);
+        }
+        return menuManagementMap.get(menuIndex);
+    }
+
+    /**
+     * doNoticeCallback
+     *
+     * @param request
+     * @param response
+     * @param jsonInput
+     * @param printWriter
+     */
+    @RequestMapping(value = "cb/proc", method = RequestMethod.POST, headers = { "content-type=text/xml" })
+    @ResponseBody
+    public void doNoticeCallback(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @RequestBody String xmlStr,
+            PrintWriter printWriter) {
+        getAppLogger().info("doNoticeCallback start");
+        String tag = "EventKey";
+        String menuIndex = getXmlTagValue(xmlStr, tag);
+        String serviceId = "";
+        CmpMenuManagementDTO menuManagementDTO = getMenuContent(request, response, menuIndex);
+        // TODO default message define needed
+        if (menuManagementDTO == null) {
+            serviceId = "SPI0301";
+        } else {
+            serviceId = menuManagementDTO.getRedirectPath();
+        }
+        Object[] input = new Object[] { xmlStr };
+        String resXmlStr = "";
+        try {
+            String uri = constProperties.get("URL-SPI-ROOT") + serviceId;
+            GenericServiceResponse<String> res = callService(request, response, uri, input, String.class);
+            if (res.getResultCode() == GenericServiceResponse.SUCCESS) {
+                resXmlStr = res.getResultObject();
+            }
+            printWriter.write(resXmlStr);
+        } catch (Exception e) {
+            getAppLogger().error(e);
+        } finally {
+            printWriter.flush();
+            printWriter.close();
+        }
+    }
+
+    /**
+     * doNoticeCallback
+     *
+     * @param request
+     * @param response
+     * @param jsonInput
+     * @param printWriter
+     */
+    @RequestMapping(value = "cb/proc", method = RequestMethod.GET)
+    @ResponseBody
+    public void doNoticeAuthority(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @RequestParam("signature") String signature,
+            @RequestParam("timestamp") String timestamp,
+            @RequestParam("nonce") String nonce,
+            @RequestParam("echostr") String echostr,
+            PrintWriter printWriter) {
+        getAppLogger().info("doNoticeAuthority start");
+        try {
+            // 校验
+            Boolean result = checkNotice(constProperties.get("WECHAT-NOTICE-TOKEN"), timestamp, nonce, signature);
+            if (result) {
+                printWriter.write(echostr);
+            }
+        } catch (Exception e) {
+            getAppLogger().error(e);
+        } finally {
+            printWriter.flush();
+            printWriter.close();
+        }
+    }
+
+    /**
+     * doViewCallback
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param modelMap
+     * @param inputDTO
+     * @return
+     */
+    @RequestMapping(value = "cb/pres", method = RequestMethod.GET)
+    public String doViewCallback(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            ModelMap modelMap,
+            @RequestParam("code") String code,
+            @RequestParam("menuIndex") String menuIndex) {
+        getAppLogger().info("doViewCallback start");
+        StringBuilder pathBuffer = new StringBuilder();
+        pathBuffer.append("redirect:");
+        pathBuffer.append(constProperties.get("URL-WEB-DISPATCHER"));
+        pathBuffer.append("?");
+        pathBuffer.append("code=");
+        pathBuffer.append(code);
+        pathBuffer.append("&");
+        pathBuffer.append("menuIndex=");
+        pathBuffer.append(menuIndex);
+        return pathBuffer.toString();
+    }
+
+    /**
+     * doViewCallback
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param modelMap
+     * @param inputDTO
+     * @return
+     */
+    @RequestMapping(value = "cb/pres/to", method = RequestMethod.GET)
+    public String doViewCallbackTo(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            ModelMap modelMap,
+            @RequestParam("code") String code,
+            @RequestParam("menuIndex") String menuIndex) {
+        StringBuilder pathBuffer = new StringBuilder();
+        pathBuffer.append("redirect:");
+        String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+        Object[] input = new Object[] { code };
+        try {
+            // 鉴权
+            GenericServiceResponse<UserObject> userLoginServiceResponse = callService(request, response, serviceRootUri + "CMWS10001", input, UserObject.class);
+            // Boolean isMobileBinded = null;
+            // 鉴权成功的场合
+            if (userLoginServiceResponse.getResultCode() != GenericServiceResponse.SUCCESS) {
+                // TODO
+            }
+            UserObject userObject = userLoginServiceResponse.getResultObject();
+
+            // 调用服务检查是否已绑定手机
+            GenericServiceResponse<Boolean> isMobileBindedResponse = super.callService(request, response, serviceRootUri + "SPI0205", new Object[0], Boolean.class);
+            if (isMobileBindedResponse.getResultCode() != GenericServiceResponse.SUCCESS) {
+                // TODO
+            }
+            Boolean isMobileBinded = isMobileBindedResponse.getResultObject();
+            // 取得跳转路径
+            pathBuffer.append(createRedirectPath(userObject, getMenuContent(request, response, menuIndex), isMobileBinded, constProperties.get("URL-WEB-DISPATCHER")));
+
+        } catch (Exception e) {
+            pathBuffer.append(constProperties.get("URL-WEB-ERROR"));
+        }
+
+        return pathBuffer.toString();
+    }
+
+    /**
+     * doInnerDispatcher
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param modelMap
+     * @param inputDTO
+     * @return
+     */
+    @RequestMapping(value = "cb/pres/forward", method = RequestMethod.GET)
+    public String doInnerDispatcher(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            ModelMap modelMap,
+            @RequestParam("pageId") String pageId) {
+        getAppLogger().info("doInnerDispatcher start");
+        StringBuilder pathBuffer = new StringBuilder();
+        pathBuffer.append("redirect:");
+        pathBuffer.append(constProperties.get("URL-WEB-DISPATCHER"));
+        pathBuffer.append("#");
+        pathBuffer.append(pageId);
+        return pathBuffer.toString();
+    }
+
+    /**
+     * doOutterNoAuthBindSsoDispatcher
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param modelMap
+     * @param inputDTO
+     * @return
+     */
+    @RequestMapping(value = "cb/pres/OutterNoAuthBindSsoRedirect", method = RequestMethod.GET)
+    public String doOutterNoAuthBindSsoRedirect(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            ModelMap modelMap,
+            @RequestParam("req_typ") String reqtyp,
+            @RequestParam("Token") String token) {
+
+        // 判断是否绑定
+        String serviceRootUri = constProperties.get("URL-SPI-ROOT");
+        String jsonOutput = super.callService(request, response, serviceRootUri + "SPI0602", "[]");
+        JSONObject myJsonObject = null;
+        StringBuilder pathBuffer = null;
+        try {
+            myJsonObject = new JSONObject(jsonOutput);
+            // 未绑定的场合，重定向到绑定画面进行绑定
+            if ("0".equals(myJsonObject.getJSONObject("resultObject").get("userBindStatus").toString())) {
+                getAppLogger().info("doInnerDispatcher start");
+                pathBuffer = new StringBuilder();
+                pathBuffer.append("redirect:");
+                pathBuffer.append(constProperties.get("URL-WEB-DISPATCHER"));
+                pathBuffer.append("#");
+                pathBuffer.append("mobileBind");
+                pathBuffer.append("/");
+                String redrietUrl = "$hebaoEntry/" + reqtyp;
+                pathBuffer.append(redrietUrl.replace("//", "**").replace("/", "*"));
+                pathBuffer.append("&");
+                pathBuffer.append("Token=");
+                pathBuffer.append(token);
+            } else {
+                getAppLogger().info("doInnerDispatcher start");
+                pathBuffer = new StringBuilder();
+                pathBuffer.append("redirect:");
+                pathBuffer.append(constProperties.get("URL-WEB-DISPATCHER"));
+                pathBuffer.append("#");
+                pathBuffer.append("hebaoEntry");
+                pathBuffer.append("/");
+                pathBuffer.append(reqtyp);
+                pathBuffer.append("&");
+                pathBuffer.append("Token=");
+                pathBuffer.append(token);
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return pathBuffer.toString();
+    }
+
+    /**
+     * doOutterAuthRedirect
+     *
+     * @param session
+     * @param request
+     * @param response
+     * @param modelMap
+     * @param inputDTO
+     * @return
+     */
+    @RequestMapping(value = "cb/pres/OutterAuthRedirect", method = RequestMethod.GET)
+    public String doOutterAuthRedirect(
+            HttpSession session,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            ModelMap modelMap,
+            @RequestParam("code") String code,
+            @RequestParam("outterRedirectUrl") String outterRedirectUrl) {
+
+        getAppLogger().info("doOutterAuthRedirect start");
+        getAppLogger().info("outterRedirectUrl is " + outterRedirectUrl);
+        // 鉴权
+        StringBuilder pathBuffer = new StringBuilder();
+        pathBuffer.append("redirect:");
+        pathBuffer.append(constProperties.get("URL-WEB-DISPATCHER"));
+        pathBuffer.append("?");
+        pathBuffer.append("code=");
+        pathBuffer.append(code);
+        pathBuffer.append("&");
+        pathBuffer.append("OutterAuthRedirect=");
+        pathBuffer.append(outterRedirectUrl.replaceAll("=", "*"));
+        getAppLogger().info("doOutterAuthRedirect url is" + pathBuffer.toString());
+        return pathBuffer.toString();
+    }
+
+    /**
+     * getXmlTagValue
+     *
+     * @param xml
+     * @param tag
+     * @return
+     */
+    protected String getXmlTagValue(
+            String xml,
+            String tag) {
+        String tagBegin = "<" + tag + ">";
+        String tagEnd = "</" + tag + ">";
+        if (!xml.contains(tagBegin) || !xml.contains(tagEnd)) {
+            return null;
+        }
+        int begin = xml.indexOf(tagBegin) + tagBegin.length();
+        int end = xml.indexOf(tagEnd);
+        String value = xml.substring(begin, end).trim();
+        if (value.contains("<![CDATA[")) {
+            value = value.replace("<![CDATA[", "");
+            if (value.contains("]]>")) {
+                value = value.replace("]]>", "");
+            }
+        }
+        return value.trim();
+    }
+
+    /**
+     * createRedirectPath
+     *
+     * @param user
+     * @param menu
+     * @param isMobileBinded
+     * @param webDispatcher
+     * @return
+     */
+    protected String createRedirectPath(
+            UserObject user,
+            CmpMenuManagementDTO menu,
+            Boolean isMobileBinded,
+            String webDispatcher) {
+        String result = webDispatcher;
+        String redirectPath = null;
+        String SSO_PAGE_ID = "hebaoEntry";
+        String MOBILE_BIND_PAGE_ID = "mobileBind";
+        String[] paramArr = new String[2];
+        if (user != null && menu != null) {
+            // 跳转路径
+            redirectPath = menu.getRedirectPath();
+            // 跳转至SSO的场合
+            if (menu.getIsSsoKbn() == 1) {
+                paramArr[0] = SSO_PAGE_ID;
+                paramArr[1] = redirectPath;
+            }
+            // 需要绑定的场合，跳转至手机绑定页面
+            if (menu.getIsBindingKbn() == 1) {
+                if (isMobileBinded == false) {
+                    paramArr[0] = MOBILE_BIND_PAGE_ID;
+                }
+            }
+
+            // 组装跳转路径
+            result = assemblingRedirectPath(webDispatcher, paramArr);
+        }
+        return result;
+    }
+
+    /**
+     * assemblingRedirectPath
+     *
+     * @param uri
+     * @param paramArr
+     * @return
+     */
+    protected String assemblingRedirectPath(
+            String uri,
+            String[] paramArr) {
+        StringBuffer result = new StringBuffer(uri + "#");
+
+        for (String param : paramArr) {
+            result.append(param);
+            result.append("/");
+        }
+
+        return result.toString();
+    }
+
+    /**
+     * checkNotice
+     *
+     * @param token
+     * @param timestamp
+     * @param nonce
+     * @param signature
+     * @return
+     */
+    protected Boolean checkNotice(
+            String token,
+            String timestamp,
+            String nonce,
+            String signature) {
+        Boolean result = false;
+        String[] sortItemArray = new String[3];
+        sortItemArray[0] = token;
+        sortItemArray[1] = timestamp;
+        sortItemArray[2] = nonce;
+        // 进行字典序排序
+        Arrays.sort(sortItemArray, String.CASE_INSENSITIVE_ORDER);
+        // 对排序后的字符串进行拼接
+        String tmpString = "";
+        for (int i = 0; i < sortItemArray.length; i++) {
+            tmpString += sortItemArray[i];
+        }
+        tmpString = DigestUtils.sha1Hex(tmpString);
+        if (signature.equals(tmpString)) {
+            result = true;
+        }
+        return result;
+    }
+}

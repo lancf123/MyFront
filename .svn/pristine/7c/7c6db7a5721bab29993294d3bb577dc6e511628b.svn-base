@@ -1,0 +1,19 @@
+/**
+ * WeChat API调用模块
+ *
+ * @version 1.0
+ */
+var _wechat = new function(){
+
+    /**
+     * 关闭当前网页窗口
+     *
+     * @public
+     */
+    function closeWindow(){
+    	setTimeout(function(){
+    		wx.closeWindow();
+        }, 1100);
+    }
+    this.closeWindow = closeWindow;
+};

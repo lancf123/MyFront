@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no, email=no" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="full-screen" content="yes" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta name="360-fullscreen" content="true" />
+		<meta name="x5-page-mode" content="app" />
+		<meta name="browsermode" content="application" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="../css/example.css">
+		<link rel="stylesheet" href="../jslib/weui/css/weui.min.css">
+		<link rel="stylesheet" href="../css/weui.ext.css">
+		<title></title>
+	</head>
+
+	<body>
+		<section>
+			<div class="blue_bg">
+				<p class="bubble">Hi&nbsp;,&nbsp;您有什么要帮助的？</p>
+				<img src="../image/pig.png" width="110px" height="110px" alt=""></div>
+			<div class="weui_cells weui_cells_access top0">
+				<a class="weui_cell" href="help2_hebao.html">
+					<div class="weui_cell_bd weui_cell_primary">
+						<img src="../image/img1.png" width="30px">
+						<p class="dis">和包账户</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<a class="weui_cell" href="help2_recharge.html">
+					<div class="weui_cell_bd weui_cell_primary">
+						<img src="../image/img2.png" width="30px">
+						<p class="dis">话费</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<a class="weui_cell" href="help2_ecoupons.html">
+					<div class="weui_cell_bd weui_cell_primary">
+						<img src="../image/img3.png" width="30px">
+						<p class="dis">电子券</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+				<a class="weui_cell" href="help2_hejubao.html">
+					<div class="weui_cell_bd weui_cell_primary">
+						<img src="../image/img4.png" width="30px">
+						<p class="dis">和聚宝</p>
+					</div>
+					<div class="weui_cell_ft">
+					</div>
+				</a>
+			</div>
+		</section>
+	</body>
+
+</html>

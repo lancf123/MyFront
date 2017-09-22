@@ -1,0 +1,84 @@
+package com.wallet.cm.web.dispatcher;
+
+import java.io.PrintWriter;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.dora.message.MessageProperties;
+
+/**
+ * SystemAjaxDispatcher
+ *
+ * @author Yue MA
+ *
+ */
+@Controller
+@RequestMapping("ss/")
+public class SystemAjaxDispatcher extends CommonServiceInvoker {
+	
+	/**
+     * Const define properties
+     */
+    @Resource(
+            name = "constProperties")
+    private MessageProperties constProperties;
+
+    /**
+     * do AJAX Post
+     * 
+     * @param request
+     * @param response
+     * @param serviceId
+     * @param jsonInput
+     * @param printWriter
+     */
+    @RequestMapping(value = "ai/{sysId}/{serviceId}", method = RequestMethod.POST, headers = { "content-type=application/json" })
+    @ResponseBody
+    public void doAJAXPost(HttpServletRequest request, HttpServletResponse response, @PathVariable String sysId, @PathVariable String serviceId, @RequestBody String jsonInput, PrintWriter printWriter) {
+        String jsonOutput = null;
+        try {
+            String uri = constProperties.get("URL-SPI-ROOT") + serviceId;
+            jsonOutput = callService(request, response, uri, jsonInput);
+            printWriter.write(jsonOutput);
+        } catch (Exception e) {
+            getAppLogger().error(e);
+        } finally {
+            printWriter.flush();
+            printWriter.close();
+        }
+    }
+    
+    /**
+     * do AJAX Get
+     * 
+     * @param request
+     * @param response
+     * @param serviceId
+     * @param jsonInput
+     * @param printWriter
+     */
+    @RequestMapping(value = "ai/{sysId}/{serviceId}/{jsonInput}", method = RequestMethod.GET)
+    @ResponseBody
+    public void doAJAXGet(HttpServletRequest request, HttpServletResponse response, @PathVariable String sysId, @PathVariable String serviceId, @PathVariable String jsonInput, PrintWriter printWriter) {
+        String jsonOutput = null;
+        try {
+            String uri = constProperties.get("URL-SPI-ROOT") + serviceId;
+            jsonOutput = callService(request, response, uri, jsonInput);
+            printWriter.write(jsonOutput);
+        } catch (Exception e) {
+            getAppLogger().error(e);
+        } finally {
+            printWriter.flush();
+            printWriter.close();
+        }
+    }
+}

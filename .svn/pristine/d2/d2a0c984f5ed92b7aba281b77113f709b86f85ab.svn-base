@@ -1,0 +1,60 @@
+var MenuModel = function(){
+
+    /**
+     * 根据菜单编号取得菜单信息
+     *
+     * @public
+     * @param  {string} menuIndex 菜单编号
+     * @return {Object} 菜单信息
+     */
+    var getMenuInfo = function(menuIndex){
+        return _service.invokeSync("SPI9901", {
+            "menuIndex": menuIndex
+        });
+    };
+    this.getMenuInfo = getMenuInfo;
+
+    /**
+     * 根据菜单编号取得目标画面信息
+     *
+     * @public
+     * @return {Object} 目标画面信息
+     */
+    var getTargetPageInfo = function(menuInfo){
+        var ret = {};
+        // 是否已绑定手机
+        var isBindMobile = false;
+        // 跳转url
+        var redirectPath = null;
+
+        if (!_util.isEmpty(menuInfo)){
+            redirectPath = menuInfo.redirectPath;
+            if (menuInfo.isSsoKbn === 1){
+            // 需要跳转至SSO的场合
+                ret.pageId = "hebaoEntry";
+                ret.pageParams = [redirectPath];
+            }else{
+            // 不需要跳转至SSO的场合，直接跳转
+                ret.redirectUri = redirectPath;
+            }
+            // 需要绑定的场合，跳转至手机绑定页面
+            if (menuInfo.isBindingKbn === 1){
+                // 调用服务检查是否已绑定手机
+                isBindMobile = _service.invokeSync("SPI0205");
+                // 还未绑定手机的场合
+                if (!isBindMobile){
+                    var redirectUri = ret.redirectUri;
+                    if (menuInfo.isSsoKbn === 1){
+                        redirectUri = "#hebaoEntry/" +
+                            redirectPath;
+                    }
+                    ret.pageId = "mobileBind";
+                    ret.pageParams = [redirectUri];
+                    delete ret.redirectUri;
+                }
+            }
+        }
+        return ret;
+    };
+    this.getTargetPageInfo = getTargetPageInfo;
+};
